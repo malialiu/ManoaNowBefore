@@ -84,7 +84,7 @@ class HomeScreen extends React.Component {
         { path: require('./src/images/assets/key_star.png') },
         // UH Programs
         { path: require('./src/images/KaLeo.png') },
-        { path: require('./src/images/KTUH.png') }, // Local image
+        { path: require('./src/images/KTUH.png') },
         { path: require('./src/images/UHP.png') },
         { path: require('./src/images/HIReview.png') },
       ]
@@ -176,9 +176,6 @@ class HomeScreen extends React.Component {
       let latestEvent = firebaseEventImage.slice(-1).pop();
       let IDstr = 'https://www.manoanow.org/app/portal/add_featured/upload/';
 
-      this.state.event[0] = IDstr + latestEvent.eventImage;
-
-      console.log(this.state.event);
       this.setState({
         tiles: arrayOfFirebaseData,
         background: data,
@@ -314,9 +311,8 @@ class HomeScreen extends React.Component {
           {Platform.OS === 'android' ? <StatusBar translucent={false} barStyle="light-content" backgroundColor="black" /> : null}
 
           <View style={{ width: '100%' }} />
-          <ImageBackground source={backgroundUri.length != 0 ? { uri: backgroundUri } : {uri: 'http://www.manoanow.org/app/mobile_assets/assets/app_background.png'}} style={{ width: '100%', height: '100%' }}>
+          <ImageBackground source={ require('./src/images/assets/app_background.png') } style={{ width: '100%', height: '100%' }}>
             <ScrollView scrollEnabled contentContainerStyle={{ flexGrow: 1, flexDirection: 'row', flexWrap: 'wrap', paddingBottom: height/5 }}>
-
               <SliderBox images={this.state.adImages}
                 paginationBoxVerticalPadding={0}
                 sliderBoxHeight={height/11}
