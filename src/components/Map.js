@@ -10,7 +10,8 @@ import {
   ScrollView,
   Alert,
   Modal,
-  Pressable
+  Pressable,
+  Linking
 } from 'react-native';
 import { Header, Button, SearchBar, CheckBox, Image, Icon } from 'react-native-elements';
 import AppLoading from 'expo-app-loading';
@@ -54,6 +55,7 @@ class Map extends Component {
       search: '',
       userLat: 0,
       userLng: 0,
+      isModalVisible: false,
     };
   }
 
@@ -110,16 +112,21 @@ class Map extends Component {
       }
 
 
-  onMarkerPress = location => () => {
+  onMarkerPress = location => (marker) => {
     calloutPressed = true;
     console.log("Callout pressed!");
+    /*
     this.props.navigation.push('Location', {
       pin: location,
     });
+    */
+    {this.showBottomDrawer(marker)}
   };
 
 
   handleSearch = (text) => {
+    calloutPressed = false;
+    markerPressed = false;
     const formatText = " " + text.toLowerCase();
     this.setState({
       search: formatText,
@@ -135,6 +142,8 @@ class Map extends Component {
   }
 
   onListPress = (type, link) => () => {
+  markerPressed = false;
+  calloutPressed = false;
     actionSheetRef.current?.hide();
     if(type == 'web'){
         this.props.navigation.push('Details', {
@@ -221,7 +230,7 @@ class Map extends Component {
   }
 
   showBottomDrawer = (marker) => {
-   if (markerPressed && !calloutPressed){
+   if (markerPressed || calloutPressed){
       markerPressed = false;
       actionSheetRef.current?.setModalVisible();
       console.log("bottom drawer");
@@ -239,7 +248,33 @@ class Map extends Component {
               actionSheetRef.current?.handleChildScrollEnd()
             }
           >
-
+            <View style={styles.drawerView} >
+                {this.bottomTitleShower(marker)}
+                <View style={{ flexDirection: 'row' }}>
+                    {this.bottomDescShower(marker)}
+                </View>
+                <Button
+                    buttonStyle={styles.dirButton}
+                    title = 'Get Walking Directions'
+                    onPress={this.onListPress('web', "https://www.google.com/maps/dir/?api=1&destination=" + this.state.myLat + "," + this.state.myLng + "&dir_action=navigate")}
+                />
+                <Button
+                    buttonStyle={styles.infoButton}
+                    title = 'Test Modal'
+                    onPress={() => {
+                        this.toggleModal(marker);
+                    }}
+                />
+                <Button
+                    buttonStyle={styles.infoButton}
+                    title = 'More Information'
+                    onPress={() => {
+                        this.props.navigation.push('Location', {
+                              pin: marker,
+                            })
+                    }}
+                />
+            </View>
           </ScrollView>
         </ActionSheet>
       );
@@ -252,6 +287,75 @@ class Map extends Component {
 
   setDestination = (destination) => {
     this.setState({ myDestination: destination});
+  }
+
+  toggleModal = () => {
+    this.setState({isModalVisible: !this.state.isModalVisible});
+    // console.log('show modal:' + this.state.isModalVisible);
+  };
+
+  modalTitle = (marker) => {
+    if(marker.title){
+      return(
+        <Text style = {styles.drawerText}>
+          {marker.title}
+        </Text>
+      )
+    }
+  }
+
+  modalDescription = (marker) => {
+    if(marker.description){
+      return(
+        <Text style = {styles.modalText}>
+          {marker.description}
+        </Text>
+      )
+    }
+  }
+
+  modalImage = (marker) => {
+    if(marker.images){
+      return(
+        <Image
+          style={{ width: width, height: height * 0.3}}
+          source={{ uri: marker.images[0]}}
+        />
+      )
+    }
+  }
+
+  modalDetails = (detail, type) => {
+    if(detail){
+        if (type === 'Website') {
+            return (
+                <Button
+                    buttonStyle={styles.dirButton}
+                    title = 'Website'
+                    onPress={() => Linking.openURL(detail)}
+                    containerStyle={{ marginTop: 10, marginBottom: 10 }}
+                />
+            )
+        } else if (type === 'Email') {
+            return (
+                <>
+                    {detail ?
+                        <Text style = {styles.modalText}>{type} : {detail}</Text> :
+                        <Text style = {styles.modalText}>No email provided</Text>
+                    }
+                </>
+            )
+        } else if (type === 'Phone') {
+            return (
+                <>
+                    {detail ?
+                        <Text style = {styles.modalText}>{type} : {detail}</Text> :
+                        <Text style = {styles.modalText}>No phone number provided</Text>
+                    }
+                </>
+            )
+        }
+    }
   }
 
   render() {
@@ -297,7 +401,7 @@ class Map extends Component {
               onPress = {(e) => {e.stopPropagation(); this.onPinPress(marker);}}
             >
               <Callout
-                onPress={this.onMarkerPress(marker)}
+                    onPress={this.onMarkerPress(this.state.tempMarker)}
               >
                 <View>
                     <Text style={{fontSize: 15}}>{marker.title}</Text>
@@ -307,7 +411,38 @@ class Map extends Component {
           ))}
         </MapView>
 
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={this.state.isModalVisible}
+        >
+
+            <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+            <ScrollView nestedScrollEnabled={true}>
+
+                    <Icon
+                        name='close'
+                        style={styles.modalHeaderStyle}
+                        color="white"
+                        onPress={() => {this.toggleModal()}}
+                    />
+                    {this.modalTitle(this.state.tempMarker)}
+                    {this.modalImage(this.state.tempMarker)}
+                    {this.modalDescription(this.state.tempMarker)}
+                    {this.modalDetails(this.state.tempMarker.website, 'Website')}
+                    {this.state.tempMarker.email || this.state.tempMarker.phone ?
+                        <Text style={styles.modalSubtitleStyle}>Contact Information</Text> : ''
+                    }
+                    {this.modalDetails(this.state.tempMarker.email, 'Email')}
+                    {this.modalDetails(this.state.tempMarker.phone, 'Phone')}
+            </ScrollView>
+            </View>
+             </View>
+        </Modal>
+
         {this.showBottomDrawer(this.state.tempMarker)}
+
         <View style={{ marginTop: 20, marginBottom: 10 }}>
             <View style={{ flexDirection: 'row', marginBottom: 10 }}>
                 <View style={{ flex: 3 }}>
@@ -324,12 +459,19 @@ class Map extends Component {
   }
 }
 
+// containerStyle={{ position: 'absolute', right: 15, marginTop: 15 }}
+
 Map.propTypes = {
   navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
   pinRef: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    // backgroundColor: 'purple',
+  },
   checkboxText: {
     color: 'white',
     marginLeft: 1,
@@ -360,9 +502,65 @@ const styles = StyleSheet.create({
     padding: 15,
     color: '#2D2D2D'
   },
-  button: {
+  dirButton: {
     textAlign:'center',
-    paddingBottom: 10
+  },
+  infoButton: {
+    textAlign:'center',
+    marginTop: 10,
+    backgroundColor: '#009933'
+  },
+  modalView: {
+    padding: 15,
+    backgroundColor: '#2D2D2D',
+    borderRadius: 20,
+    width: "90%",
+    height: "85%",
+    // alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  modalText: {
+    fontSize: 16,
+    color: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalHeaderStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 25,
+    marginBottom: 15,
+  },
+  modalSubtitleStyle: {
+    flex: 1,
+    color: 'white',
+    fontSize: 20,
+  },
+  closeModal: {
+    backgroundColor: '#F194FF',
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    marginTop: 20,
+  },
+  modalCloseButtonTextStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 20,
   },
 });
 
