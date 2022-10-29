@@ -65,9 +65,7 @@ class HomeScreen extends React.Component {
       text: '',
       fontsAreLoaded: false,
       isVisible: false,
-      ad: [
-        require('./src/images/banner.png'),
-      ],
+      ad: [],
       event: [
         require('./src/images/assets/EVENTS_THUMB_HALLOWEEN.png'),
       ],
