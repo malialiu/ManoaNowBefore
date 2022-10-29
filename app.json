@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "ManoaNow",
+    "description": "This project is really great.",
+    "slug": "ManoaNow",
+    "privacy": "public",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "5.2.2",
+
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "primaryColor": "#2d2d2d",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#141417"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.icampustimes.kaleo",
+      "infoPlist": {
+        "NSCalendarsUsageDescription": "Manoa Now uses the calendar to schedule events on the calendar.",
+        "NSRemindersUsageDescription": "Manoa Now uses reminders to schedule events on the calendar."
+      }
+    },
+    "android": {
+      "package": "com.icampustimes.kaleo",
+      "versionCode": 32,
+      "permissions": ["READ_CALENDAR",
+        "WRITE_CALENDAR",
+        "READ_PHONE_STATE"],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyD0WdQRhLYFDkToGyrhVdAXHDx6WYfECbk"
+        }
+      }
+    }
+  }
+}
