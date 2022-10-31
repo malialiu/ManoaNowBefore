@@ -260,18 +260,9 @@ class Map extends Component {
                 />
                 <Button
                     buttonStyle={styles.infoButton}
-                    title = 'Test Modal'
-                    onPress={() => {
-                        this.toggleModal(marker);
-                    }}
-                />
-                <Button
-                    buttonStyle={styles.infoButton}
                     title = 'More Information'
                     onPress={() => {
-                        this.props.navigation.push('Location', {
-                              pin: marker,
-                            })
+                        this.toggleModal(marker);
                     }}
                 />
             </View>
@@ -422,7 +413,7 @@ class Map extends Component {
             <ScrollView nestedScrollEnabled={true}>
 
                     <Icon
-                        name='close'
+                        name='keyboard-backspace'
                         style={styles.modalHeaderStyle}
                         color="white"
                         onPress={() => {this.toggleModal()}}
