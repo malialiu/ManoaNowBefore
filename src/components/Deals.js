@@ -126,7 +126,7 @@ class Deals extends Component {
       );
     } else {
       return (
-      <ScrollView scrollEnabled contentContainerStyle={{ flexGrow: 1, flexDirection: 'row', flexWrap: 'wrap' , paddingBottom: 124, marginLeft: width * .01}}>
+      <ScrollView scrollEnabled contentContainerStyle={{width: '100%', height: '100%', flexGrow: 1, flexDirection: 'row', flexWrap: 'wrap' , marginLeft: width * .01}}>
           {JobAds.map((ad, idx) => (
             <TouchableOpacity onPress={()=> this.onJobImagePress(ad, Jobstr)} key={idx}>
               <Image
@@ -141,7 +141,7 @@ class Deals extends Component {
             width={width * .85}
             height={width * .85}
             windowBackgroundColor="rgba(0, 0, 0, .75)"
-            overlayStyle={{backgroundColor: 'rgba(52, 52, 52, 0.0)'}}
+            overlayStyle={{backgroundColor: 'rgba(0, 0, 0, 0.0)'}}
           >
             <Image
               source={{uri: overlayImage}}
