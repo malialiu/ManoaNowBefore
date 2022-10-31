@@ -65,12 +65,14 @@ class HomeScreen extends React.Component {
       text: '',
       fontsAreLoaded: false,
       isVisible: false,
-      ad: [],
+      ad: [
+        require('./src/images/assets/img.png'),
+      ],
       event: [
         require('./src/images/assets/EVENTS_THUMB_HALLOWEEN.png'),
       ],
       images: [ // Network image
-        require('./src/images/assets/mod6.png'),
+        require('./src/images/assets/img.png'),
         require('./src/images/assets/mod7.png'),
         require('./src/images/assets/mod8.png'),
         require('./src/images/assets/mod9.png'),
@@ -392,29 +394,23 @@ class HomeScreen extends React.Component {
               {'Advertisements'}
               </Text>
 
-              <SliderBox
-                images={this.state.images}
-                sliderBoxHeight={height/4}
-                circleLoop
-                inactiveDotColor='#333333'
-                dotColor='#fff'
-                activeOpacity={0.5}
-                autoplay={true}
-                dotStyle={{ 'width': 8, margin: -2, 'height': 8 }}
-                ImageComponentStyle={{ borderRadius: 15, width: '80%', marginBottom: 40 }}
-                paginationBoxStyle={{
-                  position: "absolute",
-                  bottom: 0,
-                  padding: 0,
-                  width: '75%',
-                  alignItems: "center",
-                  alignSelf: "center",
-                  justifyContent: "center",
-                  paddingVertical: 10,
-                  paddingBottom: 20
-                }}
-                onCurrentImagePressed={() => this.props.navigation.navigate('Ads')}
-                />
+              <SliderBox images={this.state.ad} paginationBoxVerticalPadding={20}
+                              sliderBoxHeight={height/4}
+                              circleLoop={true}
+                              dotStyle={{ 'width': 0, 'height': 0 }}
+                              inactiveDotColor={'black'}
+                              paginationBoxStyle={{
+                                position: "absolute",
+                                bottom: 0,
+                                padding: 0,
+                                width: '75%',
+                                alignItems: "center",
+                                alignSelf: "center",
+                                justifyContent: "center",
+                                paddingVertical: 10
+                              }}
+                              onCurrentImagePressed={() => this.props.navigation.navigate('Events')}
+                              ImageComponentStyle={{ resizeMode: 'contain', borderRadius: 15, width: '80%' }} />
 
               <Text style={{ color: 'white', fontFamily: 'AvenirNext-Medium', paddingLeft: width/14, marginTop: 5, marginBottom: 5, fontSize: 25 }}>
                 {'Events'}
