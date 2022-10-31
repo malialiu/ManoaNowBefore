@@ -126,12 +126,29 @@ class Deals extends Component {
       );
     } else {
       return (
-          <View style={{width: '100%', height: '100%', resizeMode: 'contain', marginTop: '50%'}}>
-
-            <Text style={{ paddingLeft: width/14, fontWeight: 'bold', paddingRight: width/14, color: 'white', fontFamily: 'AvenirNext-Medium', fontSize: 25, textAlign: 'center' }}>COMING SOON</Text>
-            <Text style={{ paddingLeft: width/14, paddingRight: width/14, color: 'white', fontFamily: 'AvenirNext-Medium', fontSize: 25, textAlign: 'center' }}> The Kaleo Team is working hard to find you job opportunities</Text>
-
-          </View>
+      <ScrollView scrollEnabled contentContainerStyle={{ flexGrow: 1, flexDirection: 'row', flexWrap: 'wrap' , paddingBottom: 124, marginLeft: width * .01}}>
+          {JobAds.map((ad, idx) => (
+            <TouchableOpacity onPress={()=> this.onJobImagePress(ad, Jobstr)} key={idx}>
+              <Image
+                source={{ uri:  Jobstr.concat(ad.adimage) }}
+                style={{ width: width * .48, height: width * .48 , marginTop: width * .01, marginBottom: width * .01, marginRight: width * .01}}
+              />
+            </TouchableOpacity>
+          )) }
+          <Overlay
+            isVisible={this.state.isVisible}
+            onBackdropPress={() => this.setState({ isVisible: false })}
+            width={width * .85}
+            height={width * .85}
+            windowBackgroundColor="rgba(0, 0, 0, .75)"
+            overlayStyle={{backgroundColor: 'rgba(52, 52, 52, 0.0)'}}
+          >
+            <Image
+              source={{uri: overlayImage}}
+              style={{width: width * .8, height: width * .8, }}
+            />
+          </Overlay>
+        </ScrollView>
         );
       }
     }
