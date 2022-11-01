@@ -237,7 +237,7 @@ class HomeScreen extends React.Component {
         this.props.navigation.push('Ads', {
         });
       } else if (link == 'MAP') {
-        this.props.navigation.push('Maps', {
+        this.props.navigation.push('Search', {
         });
       }
     }
