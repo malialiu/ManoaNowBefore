@@ -65,7 +65,9 @@ class HomeScreen extends React.Component {
       text: '',
       fontsAreLoaded: false,
       isVisible: false,
-      ad: [],
+      ad: [
+      require('./src/images/assets/advertisement.png'),
+      ],
       event: [
         require('./src/images/assets/EVENTS_THUMB_HALLOWEEN.png'),
       ],
@@ -389,29 +391,22 @@ class HomeScreen extends React.Component {
               {'Advertisements'}
               </Text>
 
-              <SliderBox
-                images={this.state.images}
-                sliderBoxHeight={height/4}
-                circleLoop
-                inactiveDotColor='#333333'
-                dotColor='#fff'
-                activeOpacity={0.5}
-                autoplay={true}
-                dotStyle={{ 'width': 8, margin: -2, 'height': 8 }}
-                ImageComponentStyle={{ borderRadius: 15, width: '80%', marginBottom: 40 }}
-                paginationBoxStyle={{
-                  position: "absolute",
-                  bottom: 0,
-                  padding: 0,
-                  width: '75%',
-                  alignItems: "center",
-                  alignSelf: "center",
-                  justifyContent: "center",
-                  paddingVertical: 10,
-                  paddingBottom: 20
-                }}
-                onCurrentImagePressed={() => this.props.navigation.navigate('Ads')}
-                />
+              <SliderBox images={this.state.ad} paginationBoxVerticalPadding={20}
+                  sliderBoxHeight={height/4}
+                  circleLoop={true}
+                  dotStyle={{ 'width': 0, 'height': 0 }}
+                  inactiveDotColor={'black'}
+                  paginationBoxStyle={{
+                    position: "absolute",
+                    bottom: 0,
+                    padding: 0,
+                    width: '75%',
+                    alignItems: "center",
+                    alignSelf: "center",
+                    justifyContent: "center",
+                    paddingVertical: 10
+                  }}
+                  ImageComponentStyle={{ resizeMode: 'contain', borderRadius: 15, width: '80%' }} />
 
               <Text style={{ color: 'white', fontFamily: 'AvenirNext-Medium', paddingLeft: width/14, marginTop: 5, marginBottom: 5, fontSize: 25 }}>
                 {'Events'}

@@ -106,8 +106,6 @@ class Map extends Component {
           });
         });
 
-        console.log("hELLO\n");
-
         console.log(data);
       }
 
