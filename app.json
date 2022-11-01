@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "5.2.2",
+    "version": "5.2.4",
 
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -34,7 +34,7 @@
     },
     "android": {
       "package": "com.icampustimes.kaleo",
-      "versionCode": 32,
+      "versionCode": 33,
       "permissions": ["READ_CALENDAR",
         "WRITE_CALENDAR",
         "READ_PHONE_STATE"],
