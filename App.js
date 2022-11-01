@@ -70,11 +70,8 @@ class HomeScreen extends React.Component {
         require('./src/images/assets/EVENTS_THUMB_HALLOWEEN.png'),
       ],
       images: [ // Network image
-        require('./src/images/assets/mod6.png'),
-        require('./src/images/assets/mod7.png'),
-        require('./src/images/assets/mod8.png'),
-        require('./src/images/assets/mod9.png'),
-        require('./src/images/assets/mod10.png'),
+        require('./src/images/assets/APP_JP_POWERSPORTS.png'),
+        require('./src/images/assets/XK3_APP2.png'),
       ],
       programs: [ // Refers to Student Essentials
         { path: require('./src/images/assets/key_deals.png') },
@@ -464,14 +461,12 @@ class HomeScreen extends React.Component {
                   paddingBottom: 20
                 }}
                 onPress={() => this.props.navigation.push('Details', {})}
-                /* onCurrentImagePressed={(index) => {
-                    if (index == 0) {
-                        this.props.navigation.push('Details', {
-                            navigation: "https://www.hawaii.edu/shs/",
+                onCurrentImagePressed={(index) => {
+                        this.props.navigation.push('Deals', {
+                            type: 'Jobs',
                         });
-                    }
                     }}
-                */
+
                 />
 
               <Text style={{ color: 'white', fontFamily: 'AvenirNext-Medium', paddingLeft: width/14, marginTop: 10, marginBottom: 5, fontSize: 25 }}>
