@@ -142,6 +142,30 @@ class HomeScreen extends React.Component {
       return arrayOfTiles;
     }
 
+    function objectReformatPin(inputObject) {
+      const arrayOfPins = [];
+      let objectOfPin = {};
+      const keys = Object.keys(inputObject);
+      for (let i = 0; i < keys.length; i += 1) {
+        const key = keys[i];
+        objectOfPin = {
+          title: inputObject[key].title,
+          description: inputObject[key].description,
+          lat: inputObject[key].lat,
+          lng: parseFloat(inputObject[key].lng),
+          images: inputObject[key].images,
+          website: inputObject[key].website,
+          phone: inputObject[key].phone,
+          address: inputObject[key].address,
+          email: inputObject[key].email,
+          type: inputObject[key].type,
+          buildingKey: inputObject[key].buildingKey,
+        };
+        arrayOfPins.push(objectOfPin);
+      }
+      return arrayOfPins;
+    }
+
     // make sure data is loaded text and backgroundisloaded
     // when u print data make sure its loaded then print
     nowappRef.once('value').then((snapshot) => {
@@ -184,6 +208,19 @@ class HomeScreen extends React.Component {
         adLinks: linkArray,
       });
       this.updateChecker(this.state.text.VersionCode, this.state.text.version);
+    });
+
+    const pinRef = nowappRef.child("map/Pins");
+    pinRef.once('value').then((snapshot) => {
+        let arrayOfFirebaseData = snapshot.val();
+
+        // reformats object to get rid of keys
+        arrayOfFirebaseData = objectReformatPin(arrayOfFirebaseData);
+        // console.log(`array of firebase data (landing): ${arrayOfFirebaseData}`);
+
+        this.setState({
+          data: arrayOfFirebaseData,
+        });
     });
   }
 
@@ -237,7 +274,8 @@ class HomeScreen extends React.Component {
         this.props.navigation.push('Ads', {
         });
       } else if (link == 'MAP') {
-        this.props.navigation.push('Search', {
+        this.props.navigation.push('Maps', {
+            pins: this.state.data,
         });
       }
     }
@@ -604,6 +642,16 @@ const SearchScreen = (props) => {
   );
 };
 
+const MapScreen = (props) => {
+
+  const { navigation } = props;
+  const pins = navigation.getParam('pins', []);
+  const buildingList = nowappRef.child("map/Pins");
+  return (
+    <Map data={pins} pinRef={buildingList} />
+  );
+};
+
 const MenuScreen = (props) => {
   const { navigation } = props;
   return (
@@ -652,15 +700,6 @@ const SubmitInfoScreen = (props) => {
   );
 };
 
-const MapScreen = (props) => {
-
-  const { navigation } = props;
-  const pins = navigation.getParam('pins', []);
-  const buildingList = nowappRef.child("map/Pins");
-  return (
-    <Map data={pins} />
-  );
-};
 const MonthScreen = (props) => {
   const { navigation } = props;
   const month = navigation.getParam('month', 'error');
@@ -714,14 +753,14 @@ const RootStack = createStackNavigator({
       headerShown: false,
     },
   },
-  PlainText: {
-    screen: TextScreen,
-    navigationOptions: {
-      headerShown: false,
-    },
-  },
   Maps: {
     screen: MapScreen,
+    navigationOptions: {
+        headerShown: false,
+    },
+  },
+  PlainText: {
+    screen: TextScreen,
     navigationOptions: {
       headerShown: false,
     },
@@ -766,13 +805,13 @@ export default App;
 DetailsScreen.propTypes = {
   navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
 };
-MapScreen.propTypes = {
-  navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
-};
 LocationScreen.propTypes = {
   navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
 };
 SearchScreen.propTypes = {
+  navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
+};
+MapScreen.propTypes = {
   navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
 };
 DealsScreen.propTypes = {
