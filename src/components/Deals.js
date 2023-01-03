@@ -1,6 +1,6 @@
  import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import { ImageBackground, Header, Text, View, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import { ImageBackground, Header, Text, StyleSheet, View, FlatList, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import { List, Image, Overlay } from 'react-native-elements'
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
@@ -117,6 +117,7 @@ class Deals extends Component {
   typeChecker = (type, IDads, JobAds, overlayImage) => {
     let IDstr = 'https://www.manoanow.org/app/portal/add_ad/upload/';
     let Jobstr = 'https://www.manoanow.org/app/jobs/upload/';
+
     if(type === "Deal" ){
       return (
       <View style={{width: '100%', height: '100%', resizeMode: 'contain', marginTop: '50%'}}>
@@ -126,13 +127,10 @@ class Deals extends Component {
       );
     } else {
       return (
-      <ScrollView scrollEnabled contentContainerStyle={{width: '100%', height: '100%', flexGrow: 1, flexDirection: 'row', flexWrap: 'wrap' , marginLeft: width * .01}}>
+      <ScrollView scrollEnabled contentContainerStyle={styles.container}>
           {JobAds.map((ad, idx) => (
-            <TouchableOpacity onPress={()=> this.onJobImagePress(ad, Jobstr)} key={idx}>
-              <Image
-                source={{ uri:  Jobstr.concat(ad.adimage) }}
-                style={{ width: width * .48, height: width * .48 , marginTop: width * .01, marginBottom: width * .01, marginRight: width * .01}}
-              />
+            <TouchableOpacity onPress={()=> this.onJobImagePress(ad, Jobstr)} key={idx} style={styles.button}>
+                <Text>{ad.name}</Text>
             </TouchableOpacity>
           )) }
           <Overlay
@@ -166,7 +164,6 @@ class Deals extends Component {
   onJobImagePress = (ad, str) => {
     let path = str.concat(ad.adimage);
     this.setState({ isVisible: true, overlayImage: path })
-
   }
 
   render() {
@@ -174,13 +171,30 @@ class Deals extends Component {
     const { navigation } = this.props;
     return !IDAreLoaded && !JobsAreLoaded ? <AppLoading /> : (
       <View style={{ width: '100%', backgroundColor: '#2D2D2D'}} >
-        <CustomHeader/>
+        <CustomHeader sectionTitle={'Job Opportunities'} />
          {this.typeChecker(type, IDAds, JobAds, overlayImage)}
       </View>
 
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap' ,
+    justifyContent: "center"
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    margin: 10,
+    width: '95%',
+    padding: 15
+  },
+});
 
 Deals.propTypes = {
   navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
