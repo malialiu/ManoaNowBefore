@@ -368,7 +368,7 @@ class HomeScreen extends React.Component {
               }}>
                 <TouchableOpacity onPress={this.onListPress('web', 'https://www.star.hawaii.edu/studentinterface/')}>
                     <Image
-                        source={require('./src/images/assets/key_star.png')}
+                        source={require('./src/images/2023_assets/2023_STAR.png')}
                         style={{
                             width: width/6,
                             height: width/6,
@@ -379,7 +379,7 @@ class HomeScreen extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this.onListPress('web', 'https://eacct-hawaii-manoa-sp.transactcampus.com/eAccounts/AnonymousHome.aspx')}>
                     <Image
-                        source={require('./src/images/assets/key_dining.png')}
+                        source={require('./src/images/2023_assets/2023_DINING_DOLLARS.png')}
                         style={{
                             width: width/6,
                             height: width/6,
@@ -390,7 +390,7 @@ class HomeScreen extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this.onListPress('page', 'MAP')}>
                   <Image
-                    source={require('./src/images/assets/key_map.png')}
+                    source={require('./src/images/2023_assets/2023_CAMPUS_MAP.png')}
                     style={{
                       width: width/6,
                             height: width/6,
@@ -403,7 +403,7 @@ class HomeScreen extends React.Component {
                   navigation: "https://uhmshuttle.com/routes"
                 })}>
                   <Image
-                    source={require('./src/images/assets/key_shuttle.png')}
+                    source={require('./src/images/2023_assets/2023_RAINBOW_SHUTTLE.png')}
                     style={{
                       width: width/6,
                       height: width/6,
@@ -414,7 +414,7 @@ class HomeScreen extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this.onListPress('page', 'UH ID DEALS')}>
                     <Image
-                        source={require('./src/images/assets/key_deals.png')}
+                        source={require('./src/images/2023_assets/2023_UH_ID.png')}
                         resizeMode='contain'
                         style={{
                             width: width/6,
@@ -429,22 +429,29 @@ class HomeScreen extends React.Component {
               {'Advertisements'}
               </Text>
 
-              <SliderBox images={this.state.ad} paginationBoxVerticalPadding={20}
-                  sliderBoxHeight={height/4}
-                  circleLoop={true}
-                  dotStyle={{ 'width': 0, 'height': 0 }}
-                  inactiveDotColor={'black'}
-                  paginationBoxStyle={{
-                    position: "absolute",
-                    bottom: 0,
-                    padding: 0,
-                    width: '75%',
-                    alignItems: "center",
-                    alignSelf: "center",
-                    justifyContent: "center",
-                    paddingVertical: 10
-                  }}
-                  ImageComponentStyle={{ resizeMode: 'contain', borderRadius: 15, width: '80%' }} />
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Events')}>
+                  <Image
+                      source={require('./src/images/2023_assets/2023_EVENTS.png')}
+                      style={{
+                          width: width/6,
+                          height: width/6,
+                          marginRight: 8
+                      }}
+                      resizeMode="contain"
+                  />
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => {this.props.navigation.push('Deals', { type: 'Jobs', });}}>
+                  <Image
+                      source={require('./src/images/2023_assets/2023_JOBS.png')}
+                      style={{
+                          width: width/6,
+                          height: width/6,
+                          marginRight: 8
+                      }}
+                      resizeMode="contain"
+                  />
+              </TouchableOpacity>
 
               <Text style={{ color: 'white', fontFamily: 'AvenirNext-Medium', paddingLeft: width/14, marginTop: 5, marginBottom: 5, fontSize: 25 }}>
                 {'Events'}
