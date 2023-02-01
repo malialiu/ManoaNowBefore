@@ -338,10 +338,6 @@ class HomeScreen extends React.Component {
 
     return (!backgroundIsLoaded && !fontsAreLoaded) ? <AppLoading /> : (
       <View style={{ flex: 1 }}>
-        <Header
-          centerComponent={() => this.renderCustomIconB()}
-          containerStyle={{ borderWidth: 0, borderBottomWidth: 0, backgroundColor: '#333333', paddingTop: 10, paddingBottom: 10 }}
-        />
         <SafeAreaView style={{ flex: 0 }}>
 
           {Platform.OS === 'ios' ? <StatusBar barStyle="light-content" /> : null}
