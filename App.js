@@ -425,10 +425,6 @@ class HomeScreen extends React.Component {
                 </TouchableOpacity>
               </View>
 
-              <Text style={{ color: 'white', fontFamily: 'AvenirNext-Medium', paddingLeft: width/14, marginTop: 20, marginBottom: 5, fontSize: 25 }}>
-              {'Advertisements'}
-              </Text>
-
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Events')}>
                   <Image
                       source={require('./src/images/2023_assets/2023_EVENTS.png')}
@@ -452,124 +448,6 @@ class HomeScreen extends React.Component {
                       resizeMode="contain"
                   />
               </TouchableOpacity>
-
-              <Text style={{ color: 'white', fontFamily: 'AvenirNext-Medium', paddingLeft: width/14, marginTop: 5, marginBottom: 5, fontSize: 25 }}>
-                {'Events'}
-              </Text>
-
-              <SliderBox images={this.state.event} paginationBoxVerticalPadding={20}
-                sliderBoxHeight={height/4}
-                circleLoop={true}
-                dotStyle={{ 'width': 0, 'height': 0 }}
-                inactiveDotColor={'black'}
-                paginationBoxStyle={{
-                  position: "absolute",
-                  bottom: 0,
-                  padding: 0,
-                  width: '75%',
-                  alignItems: "center",
-                  alignSelf: "center",
-                  justifyContent: "center",
-                  paddingVertical: 10
-                }}
-                onCurrentImagePressed={() => this.props.navigation.navigate('Events')}
-                ImageComponentStyle={{ resizeMode: 'contain', borderRadius: 15, width: '80%' }} />
-
-              <Text style={{ color: 'white', fontFamily: 'AvenirNext-Medium', paddingLeft: width/14, marginTop: 20, marginBottom: 5, fontSize: 25 }}>
-              {'Job Opportunities'}
-              </Text>
-
-              <SliderBox
-                images={this.state.images}
-                sliderBoxHeight={height/4}
-                circleLoop
-                inactiveDotColor='#333333'
-                dotColor='#fff'
-                activeOpacity={0.5}
-                autoplay={true}
-                dotStyle={{ 'width': 8, margin: -2, 'height': 8 }}
-                ImageComponentStyle={{ borderRadius: 15, width: '80%', marginBottom: 40 }}
-                paginationBoxStyle={{
-                  position: "absolute",
-                  bottom: 0,
-                  padding: 0,
-                  width: '75%',
-                  alignItems: "center",
-                  alignSelf: "center",
-                  justifyContent: "center",
-                  paddingVertical: 10,
-                  paddingBottom: 20
-                }}
-                onPress={() => this.props.navigation.push('Details', {})}
-                onCurrentImagePressed={(index) => {
-                        this.props.navigation.push('Deals', {
-                            type: 'Jobs',
-                        });
-                    }}
-
-                />
-
-              <Text style={{ color: 'white', fontFamily: 'AvenirNext-Medium', paddingLeft: width/14, marginTop: 10, marginBottom: 5, fontSize: 25 }}>
-                {'Student Media Programs'}
-              </Text>
-                <View style={{
-                  marginLeft: width/15,
-                  flexDirection: 'row',
-                }}>
-                  <TouchableOpacity onPress={() => this.props.navigation.push('Details', {
-                    navigation: "https://youtube.com/c/UHProductions"
-                  })}>
-                    <Image
-                      source={require('./src/images/UHP_revised.png')}
-                      style={{
-                        width: width/5,
-                        height: width/5,
-                        marginRight: 10
-                      }}
-                      resizeMode="contain"
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => this.props.navigation.push('Details', {
-                    navigation: "https://www.manoanow.org/kaleo/"
-                  })}>
-                    <Image
-                      source={require('./src/images/kaleo1.png')}
-                      style={{
-                        width: width/5,
-                        height: width/5,
-                        marginRight: 10
-                      }}
-                      resizeMode="contain"
-                    />
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => this.props.navigation.push('Details', {
-                    navigation: "https://stream.ktuh.org:8001/stream"
-                  })}>
-                    <Image
-                      source={require('./src/images/ktuh1.png')}
-                      style={{
-                        width: width/5,
-                        height: width/5,
-                        marginRight: 10
-                      }}
-                      resizeMode="contain"
-                    />
-                  </TouchableOpacity>
-
-                  <TouchableOpacity onPress={() => this.props.navigation.push('Details', {
-                    navigation: "http://hawaiireview.org/"
-                  })}>
-                    <Image
-                      source={require('./src/images/hawaii_review1.png')}
-                      style={{
-                        width: width/5,
-                        height: width/5,
-                        marginRight: 10
-                      }}
-                      resizeMode="contain"
-                    />
-                  </TouchableOpacity>
-                </View>
 
               <Overlay
                 isVisible={this.state.isVisible}
