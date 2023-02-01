@@ -348,7 +348,7 @@ class HomeScreen extends React.Component {
           {Platform.OS === 'android' ? <StatusBar translucent={false} barStyle="light-content" backgroundColor="black" /> : null}
 
           <View style={{ width: '100%' }} />
-          <ImageBackground source={ require('./src/images/assets/app_background.png') } style={{ width: '100%', height: '100%' }}>
+          <ImageBackground source={ require('./src/images/2023_assets/BACKGROUND_2023.jpg') } style={{ width: '100%', height: '100%' }}>
             <ScrollView scrollEnabled contentContainerStyle={{ flexGrow: 1, flexDirection: 'row', flexWrap: 'wrap', paddingBottom: height/5 }}>
               <SliderBox images={this.state.adImages}
                 paginationBoxVerticalPadding={0}
