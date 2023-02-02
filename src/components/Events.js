@@ -248,7 +248,7 @@ class Events extends Component {
     // console.log('This Month: ' + currMonth + '\nNext Month: ' + nextMonth + '\nYear: ' + currYear + "\nNext Year: " + nextYear);
     return (!eventsAreLoaded || !ACEventsAreLoaded) ? (<AppLoading />) :
       <ScrollView style={{ backgroundColor: '#000000', marginTop: -11, width: '100%', height: height, }} >
-        <CustomHeader sectionTitle={'Events'} />
+        <CustomHeader />
         <Calendar
           theme={{
             calendarBackground: '#2d2d2d',
