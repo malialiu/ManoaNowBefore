@@ -358,28 +358,35 @@ class HomeScreen extends React.Component {
                 ImageComponentStyle={{ width: '120%', resizeMode: 'contain', marginBottom: 20 }} />
 
               <View style={{
-                marginTop: 15,
                 flexDirection: 'row',
-                marginLeft: width/20
+
               }}>
+
                 <TouchableOpacity onPress={this.onListPress('web', 'https://www.star.hawaii.edu/studentinterface/')}>
                     <Image
                         source={require('./src/images/2023_assets/2023_STAR.png')}
                         style={{
-                            width: width/6,
-                            height: width/6,
-                            marginRight: 8
+                            width: width/3,
+                            height: width/3,
+                            marginLeft: 50,
+                            marginRight: 50
                         }}
                         resizeMode="contain"
                     />
                 </TouchableOpacity>
+              </View>
+              <View style={{
+                              marginTop: 15,
+                              flexDirection: 'row',
+                              marginLeft: width/15
+                            }}>
                 <TouchableOpacity onPress={this.onListPress('web', 'https://eacct-hawaii-manoa-sp.transactcampus.com/eAccounts/AnonymousHome.aspx')}>
                     <Image
                         source={require('./src/images/2023_assets/2023_DINING_DOLLARS.png')}
                         style={{
-                            width: width/6,
-                            height: width/6,
-                            marginRight: 8
+                            width: width/3,
+                            height: width/3,
+                            marginRight: 75
                         }}
                         resizeMode="contain"
                     />
@@ -388,22 +395,28 @@ class HomeScreen extends React.Component {
                   <Image
                     source={require('./src/images/2023_assets/2023_CAMPUS_MAP.png')}
                     style={{
-                      width: width/6,
-                            height: width/6,
-                            marginRight: 8
+                      width: width/3,
+                            height: width/3,
+                            marginRight: 75
                     }}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
+              </View>
+              <View style={{
+                              marginTop: 15,
+                              flexDirection: 'row',
+                              marginLeft: width/15
+                            }}>
                 <TouchableOpacity onPress={() => this.props.navigation.push('Details', {
                   navigation: "https://uhmshuttle.com/routes"
                 })}>
                   <Image
                     source={require('./src/images/2023_assets/2023_RAINBOW_SHUTTLE.png')}
                     style={{
-                      width: width/6,
-                      height: width/6,
-                      marginRight: 8
+                      width: width/3,
+                      height: width/3,
+                      marginRight: 75
                     }}
                     resizeMode="contain"
                   />
@@ -413,21 +426,25 @@ class HomeScreen extends React.Component {
                         source={require('./src/images/2023_assets/2023_UH_ID.png')}
                         resizeMode='contain'
                         style={{
-                            width: width/6,
-                            height: width/6,
-                            marginRight: 8
+                            width: width/3,
+                            height: width/3,
+                            marginRight: 75
                         }}
                     />
                 </TouchableOpacity>
               </View>
-
+               <View style={{
+                marginTop: 15,
+                flexDirection: 'row',
+                marginLeft: width/15
+              }}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Events')}>
                   <Image
                       source={require('./src/images/2023_assets/2023_EVENTS.png')}
                       style={{
-                          width: width/6,
-                          height: width/6,
-                          marginRight: 8
+                          width: width/3,
+                          height: width/3,
+                          marginRight: 75
                       }}
                       resizeMode="contain"
                   />
@@ -437,14 +454,14 @@ class HomeScreen extends React.Component {
                   <Image
                       source={require('./src/images/2023_assets/2023_JOBS.png')}
                       style={{
-                          width: width/6,
-                          height: width/6,
-                          marginRight: 8
+                          width: width/3,
+                          height: width/3,
+                          marginRight: 75
                       }}
                       resizeMode="contain"
                   />
               </TouchableOpacity>
-
+            </View>
               <Overlay
                 isVisible={this.state.isVisible}
                 onBackdropPress={() => this.setState({ isVisible: false })}
