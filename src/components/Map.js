@@ -362,7 +362,7 @@ class Map extends Component {
         <Header
           leftComponent={{ icon: 'keyboard-backspace', color: '#fff', onPress: this.onBackPress, iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
           }}
-          centerComponent={{ text: 'Campus Map', style: { color: '#fff', fontSize: 20 } }}
+          centerComponent={{ style: { color: '#fff', fontSize: 20 } }}
           rightComponent={{ icon: 'apartment', color: '#fff', onPress: this.onListPress('page', 'Search'), iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize}, }}
           containerStyle={{
             backgroundColor: 'black',

@@ -171,7 +171,7 @@ class Deals extends Component {
     const { navigation } = this.props;
     return !IDAreLoaded && !JobsAreLoaded ? <AppLoading /> : (
       <View style={{ width: '100%', backgroundColor: '#2D2D2D'}} >
-        <CustomHeader sectionTitle={'Job Opportunities'} />
+        <CustomHeader />
          {this.typeChecker(type, IDAds, JobAds, overlayImage)}
       </View>
 
