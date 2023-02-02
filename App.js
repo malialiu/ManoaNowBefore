@@ -358,7 +358,7 @@ class HomeScreen extends React.Component {
                 ImageComponentStyle={{ width: '120%', resizeMode: 'contain', marginBottom: 20 }} />
 
               <View style={{
-                flexDirection: 'row',
+                flexDirection: 'row'
 
               }}>
 
@@ -366,97 +366,98 @@ class HomeScreen extends React.Component {
                     <Image
                         source={require('./src/images/2023_assets/2023_STAR.png')}
                         style={{
-                            width: width/3,
-                            height: width/3,
-                            marginLeft: 50,
-                            marginRight: 50
+                            width: width/2.6,
+                            height: width/2.6,
+                            marginLeft: (width-width/2.6)/2,
+                            marginTop: 15
                         }}
                         resizeMode="contain"
                     />
                 </TouchableOpacity>
               </View>
               <View style={{
-                              marginTop: 15,
-                              flexDirection: 'row',
-                              marginLeft: width/15
+                            marginTop: 30,
+                            flexDirection: 'row'
                             }}>
-                <TouchableOpacity onPress={this.onListPress('web', 'https://eacct-hawaii-manoa-sp.transactcampus.com/eAccounts/AnonymousHome.aspx')}>
+
+                <TouchableOpacity onPress={this.onListPress('page', 'MAP')}>
                     <Image
-                        source={require('./src/images/2023_assets/2023_DINING_DOLLARS.png')}
+                      source={require('./src/images/2023_assets/2023_CAMPUS_MAP.png')}
                         style={{
-                            width: width/3,
-                            height: width/3,
-                            marginRight: 75
+                          width: width/2.6,
+                          height: width/2.6,
+                          marginLeft: 20
                         }}
                         resizeMode="contain"
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={this.onListPress('page', 'MAP')}>
-                  <Image
-                    source={require('./src/images/2023_assets/2023_CAMPUS_MAP.png')}
-                    style={{
-                      width: width/3,
-                            height: width/3,
-                            marginRight: 75
+
+                <TouchableOpacity onPress={this.onListPress('page', 'UH ID DEALS')}>
+                    <Image
+                        source={require('./src/images/2023_assets/2023_UH_ID.png')}
+                        style={{
+                          width: width/2.6,
+                          height: width/2.6,
+                          marginLeft:  width - 2*(width/2.6 + 20)
                     }}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
               </View>
               <View style={{
-                              marginTop: 15,
-                              flexDirection: 'row',
-                              marginLeft: width/15
-                            }}>
+                      marginTop: 30,
+                      flexDirection: 'row',
+                      }}>
+
                 <TouchableOpacity onPress={() => this.props.navigation.push('Details', {
                   navigation: "https://uhmshuttle.com/routes"
                 })}>
                   <Image
                     source={require('./src/images/2023_assets/2023_RAINBOW_SHUTTLE.png')}
                     style={{
-                      width: width/3,
-                      height: width/3,
-                      marginRight: 75
+                          width: width/2.6,
+                          height: width/2.6,
+                          marginLeft: 20
                     }}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={this.onListPress('page', 'UH ID DEALS')}>
+
+                <TouchableOpacity onPress={() => {this.props.navigation.push('Deals', { type: 'Jobs', });}}>
                     <Image
-                        source={require('./src/images/2023_assets/2023_UH_ID.png')}
+                        source={require('./src/images/2023_assets/2023_JOBS.png')}
                         resizeMode='contain'
                         style={{
-                            width: width/3,
-                            height: width/3,
-                            marginRight: 75
+                          width: width/2.6,
+                          height: width/2.6,
+                          marginLeft:  width - 2*(width/2.6 + 20)
                         }}
                     />
                 </TouchableOpacity>
               </View>
                <View style={{
-                marginTop: 15,
+                marginTop: 30,
                 flexDirection: 'row',
-                marginLeft: width/15
               }}>
               <TouchableOpacity onPress={() => this.props.navigation.navigate('Events')}>
                   <Image
                       source={require('./src/images/2023_assets/2023_EVENTS.png')}
                       style={{
-                          width: width/3,
-                          height: width/3,
-                          marginRight: 75
+                          width: width/2.6,
+                          height: width/2.6,
+                          marginLeft: 20
                       }}
                       resizeMode="contain"
                   />
-              </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => {this.props.navigation.push('Deals', { type: 'Jobs', });}}>
-                  <Image
-                      source={require('./src/images/2023_assets/2023_JOBS.png')}
+              </TouchableOpacity>
+                <TouchableOpacity onPress={this.onListPress('web', 'https://eacct-hawaii-manoa-sp.transactcampus.com/eAccounts/AnonymousHome.aspx')}>
+                    <Image
+                        source={require('./src/images/2023_assets/2023_DINING_DOLLARS.png')}
                       style={{
-                          width: width/3,
-                          height: width/3,
-                          marginRight: 75
+                          width: width/2.6,
+                          height: width/2.6,
+                          marginLeft:  width - 2*(width/2.6 + 20)
                       }}
                       resizeMode="contain"
                   />
