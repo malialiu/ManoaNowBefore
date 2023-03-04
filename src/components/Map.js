@@ -1,19 +1,19 @@
 import React, { Component, createRef, useState } from 'react';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import {
-  View,
-  Text,
-  Dimensions,
-  StatusBar,
-  TouchableHighlight,
-  StyleSheet,
-  ScrollView,
-  Alert,
-  Modal,
-  Pressable,
-  Linking
+    View,
+    Text,
+    Dimensions,
+    StatusBar,
+    TouchableHighlight,
+    StyleSheet,
+    ScrollView,
+    Alert,
+    Modal,
+    Pressable,
+    Linking, TouchableOpacity
 } from 'react-native';
-import { Header, Button, SearchBar, CheckBox, Image, Icon } from 'react-native-elements';
+import { Header, Button, SearchBar, CheckBox, Image} from 'react-native-elements';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { withNavigation } from 'react-navigation';
@@ -21,6 +21,7 @@ import ActionSheet from "react-native-actions-sheet";
 import PropTypes from 'prop-types';
 import MapViewDirections from 'react-native-maps-directions';
 import getDirections from 'react-native-google-maps-directions';
+import Icon from 'react-native-vector-icons//FontAwesome';
 
 const _ = require('lodash');
 const { width, height } = Dimensions.get('window');
@@ -31,6 +32,7 @@ const CHECKBOX_WIDTH = 120;
 const GOOGLE_MAPS_APIKEY = 'AIzaSyD0WdQRhLYFDkToGyrhVdAXHDx6WYfECbk';
 
 const actionSheetRef = createRef();
+const filterDrawer = createRef();
 let calloutPressed = false;
 let markerPressed = false;
 
@@ -56,6 +58,12 @@ class Map extends Component {
       userLat: 0,
       userLng: 0,
       isModalVisible: false,
+      isBuildings: false,
+      isParking: false,
+      isOffice: false,
+      isBusStop: false,
+      isFood: false,
+      isStudyArea: false,
     };
   }
 
@@ -274,6 +282,87 @@ class Map extends Component {
     }
   }
 
+  handleBuildingsChange = () => {
+      this.setState({isBuildings: !this.state.isBuildings});
+  }
+  handleParkingChange = () => {
+      this.setState({isParking: !this.state.isParking});
+  }
+  handleOfficeChange = () => {
+      this.setState({isOffice: !this.state.isOffice});
+  }
+  handleBusStopChange = () => {
+      this.setState({isBusStop: !this.state.isBusStop});
+  }
+  handleFoodChange = () => {
+      this.setState({isFood: !this.state.isFood});
+  }
+  handleStudyAreaChange = () => {
+      this.setState({isStudyArea: !this.state.isStudyArea});
+  }
+  showFilterDrawer = () => {
+      return(
+          <ActionSheet containerStyle = {{height: 300, backgroundColor: '#2D2D2D'}} ref={filterDrawer} gestureEnabled={true} >
+              <ScrollView
+                  nestedScrollEnabled={true}
+                  onScrollEndDrag={() =>
+                      filterDrawer.current?.handleChildScrollEnd()
+                  }
+                  onScrollAnimationEnd={() =>
+                      filterDrawer.current?.handleChildScrollEnd()
+                  }
+                  onMomentumScrollEnd={() =>
+                      filterDrawer.current?.handleChildScrollEnd()
+                  }
+              >
+                  <View style={styles.drawerView} >
+                      <View style={{flexDirection: 'row-reverse'}}>
+                          <TouchableOpacity style={styles.filterSearchButton}>
+                              <Text style={{color: 'white', fontSize: width/25, fontWeight: 'bold'}} onPress={() => {filterDrawer.current?.hide()}}>Search</Text>
+                          </TouchableOpacity>
+                      </View>
+                      <View style={{flexDirection: 'row', justifyContent: "space-around"}}>
+                          <View style={{flexDirection: 'column', marginTop: 30}}>
+                              <TouchableOpacity onPress={this.handleBuildingsChange} style={{flexDirection: 'row'}}>
+                                  {this.state.isBuildings ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
+                                  <Text style={styles.filterText}>Buildings</Text>
+                                  <View style={styles.filterIcon}><Icon name="cutlery" size={24} color='white'/></View>
+                              </TouchableOpacity>
+                              <TouchableOpacity onPress={this.handleOfficeChange} style={{flexDirection: 'row', marginTop: 30}}>
+                                  {this.state.isOffice ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
+                                  <Text style={styles.filterText}>Offices</Text>
+                                  <View style={styles.filterIcon}><Icon name="building" size={24} color='white'/></View>
+                              </TouchableOpacity>
+                              <TouchableOpacity onPress={this.handleFoodChange} style={{flexDirection: 'row', marginTop: 30}}>
+                                  {this.state.isFood ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
+                                  <Text style={styles.filterText}>Food</Text>
+                                  <View style={styles.filterIcon}><Icon name="cutlery" size={24} color='white'/></View>
+                              </TouchableOpacity>
+                          </View>
+                          <View style={{flexDirection: 'column', marginTop: 30}}>
+                              <TouchableOpacity onPress={this.handleParkingChange} style={{flexDirection: 'row'}}>
+                                  {this.state.isParking ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
+                                  <Text style={styles.filterText}>Parking Lots</Text>
+                                  <View style={styles.filterIcon}><Icon name="car" size={24} color='white'/></View>
+                              </TouchableOpacity>
+                              <TouchableOpacity onPress={this.handleBusStopChange} style={{flexDirection: 'row', marginTop: 30}}>
+                                  {this.state.isBusStop ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
+                                  <Text style={styles.filterText}>Bus Stops</Text>
+                                  <View style={styles.filterIcon}><Icon name="bus" size={24} color='white'/></View>
+                              </TouchableOpacity>
+                              <TouchableOpacity onPress={this.handleStudyAreaChange} style={{flexDirection: 'row', marginTop: 30}}>
+                                  {this.state.isStudyArea ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
+                                  <Text style={styles.filterText}>Study Areas</Text>
+                                  <View style={styles.filterIcon}><Icon name="book" size={24} color='white'/></View>
+                              </TouchableOpacity>
+                          </View>
+                      </View>
+                  </View>
+              </ScrollView>
+          </ActionSheet>
+      );
+  }
+
   setDestination = (destination) => {
     this.setState({ myDestination: destination});
   }
@@ -432,14 +521,21 @@ class Map extends Component {
 
         {this.showBottomDrawer(this.state.tempMarker)}
 
+        {this.showFilterDrawer()}
+
         <View style={{ marginTop: 20, marginBottom: 10 }}>
             <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                <View style={{ flex: 3 }}>
+                <View style={{ flex: 5 }}>
                     <SearchBar
                         onChangeText={text => this.handleSearch(text)}
                         value={search}
                         round
                     />
+                </View>
+                <View style={{ flex: 1, alignItems: "center", justifyContent: "center"}}>
+                    <Icon name="filter" size={24} color="white" onPress={() => {
+                        filterDrawer.current?.setModalVisible();
+                    }}/>
                 </View>
             </View>
         </View>
@@ -550,6 +646,36 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     fontSize: 20,
+  },
+  filterSearchButton: {
+    color: 'white',
+    backgroundColor: 'grey',
+    fontWeight: 'bold',
+    alignItems: 'center',
+    borderRadius: 10,
+    justifyContent: 'center',
+    width: width/4,
+    height: height/18,
+  },
+  filterCheckBox: {
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: 'white',
+    width: width/15,
+    height: width/15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  filterText: {
+    color: 'white',
+    fontWeight: 'bold',
+    marginLeft: 10,
+    fontSize: width/25,
+  },
+  filterIcon: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 10,
   },
 });
 
