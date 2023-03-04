@@ -326,7 +326,7 @@ class Map extends Component {
                               <TouchableOpacity onPress={this.handleBuildingsChange} style={{flexDirection: 'row'}}>
                                   {this.state.isBuildings ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
                                   <Text style={styles.filterText}>Buildings</Text>
-                                  <View style={styles.filterIcon}><Icon name="cutlery" size={24} color='white'/></View>
+                                  <View style={styles.filterIcon}><Icon name="building-o" size={24} color='white'/></View>
                               </TouchableOpacity>
                               <TouchableOpacity onPress={this.handleOfficeChange} style={{flexDirection: 'row', marginTop: 30}}>
                                   {this.state.isOffice ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
