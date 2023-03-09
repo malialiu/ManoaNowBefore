@@ -13,7 +13,7 @@ import {
     Pressable,
     Linking, TouchableOpacity
 } from 'react-native';
-import { Header, Button, SearchBar, CheckBox, Image} from 'react-native-elements';
+import { Header, Button, SearchBar, CheckBox, Image, Icon} from 'react-native-elements';
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { withNavigation } from 'react-navigation';
@@ -21,7 +21,7 @@ import ActionSheet from "react-native-actions-sheet";
 import PropTypes from 'prop-types';
 import MapViewDirections from 'react-native-maps-directions';
 import getDirections from 'react-native-google-maps-directions';
-import Icon from 'react-native-vector-icons//FontAwesome';
+import Icon5 from 'react-native-vector-icons//FontAwesome';
 
 const _ = require('lodash');
 const { width, height } = Dimensions.get('window');
@@ -326,34 +326,34 @@ class Map extends Component {
                               <TouchableOpacity onPress={this.handleBuildingsChange} style={{flexDirection: 'row'}}>
                                   {this.state.isBuildings ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
                                   <Text style={styles.filterText}>Buildings</Text>
-                                  <View style={styles.filterIcon}><Icon name="building-o" size={24} color='white'/></View>
+                                  <View style={styles.filterIcon}><Icon5 name="building-o" size={24} color='white'/></View>
                               </TouchableOpacity>
                               <TouchableOpacity onPress={this.handleOfficeChange} style={{flexDirection: 'row', marginTop: 30}}>
                                   {this.state.isOffice ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
                                   <Text style={styles.filterText}>Offices</Text>
-                                  <View style={styles.filterIcon}><Icon name="building" size={24} color='white'/></View>
+                                  <View style={styles.filterIcon}><Icon5 name="building" size={24} color='white'/></View>
                               </TouchableOpacity>
                               <TouchableOpacity onPress={this.handleFoodChange} style={{flexDirection: 'row', marginTop: 30}}>
                                   {this.state.isFood ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
                                   <Text style={styles.filterText}>Food</Text>
-                                  <View style={styles.filterIcon}><Icon name="cutlery" size={24} color='white'/></View>
+                                  <View style={styles.filterIcon}><Icon5 name="cutlery" size={24} color='white'/></View>
                               </TouchableOpacity>
                           </View>
                           <View style={{flexDirection: 'column', marginTop: 30}}>
                               <TouchableOpacity onPress={this.handleParkingChange} style={{flexDirection: 'row'}}>
                                   {this.state.isParking ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
                                   <Text style={styles.filterText}>Parking Lots</Text>
-                                  <View style={styles.filterIcon}><Icon name="car" size={24} color='white'/></View>
+                                  <View style={styles.filterIcon}><Icon5 name="car" size={24} color='white'/></View>
                               </TouchableOpacity>
                               <TouchableOpacity onPress={this.handleBusStopChange} style={{flexDirection: 'row', marginTop: 30}}>
                                   {this.state.isBusStop ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
                                   <Text style={styles.filterText}>Bus Stops</Text>
-                                  <View style={styles.filterIcon}><Icon name="bus" size={24} color='white'/></View>
+                                  <View style={styles.filterIcon}><Icon5 name="bus" size={24} color='white'/></View>
                               </TouchableOpacity>
                               <TouchableOpacity onPress={this.handleStudyAreaChange} style={{flexDirection: 'row', marginTop: 30}}>
                                   {this.state.isStudyArea ? (<View style={styles.filterCheckBox}><Icon name="check" size={17} color='white'/></View>) : <View style={styles.filterCheckBox}/>}
                                   <Text style={styles.filterText}>Study Areas</Text>
-                                  <View style={styles.filterIcon}><Icon name="book" size={24} color='white'/></View>
+                                  <View style={styles.filterIcon}><Icon5 name="book" size={24} color='white'/></View>
                               </TouchableOpacity>
                           </View>
                       </View>
@@ -533,7 +533,7 @@ class Map extends Component {
                     />
                 </View>
                 <View style={{ flex: 1, alignItems: "center", justifyContent: "center"}}>
-                    <Icon name="filter" size={24} color="white" onPress={() => {
+                    <Icon5 name="filter" size={24} color="white" onPress={() => {
                         filterDrawer.current?.setModalVisible();
                     }}/>
                 </View>
