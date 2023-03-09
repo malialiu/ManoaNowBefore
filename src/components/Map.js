@@ -21,6 +21,9 @@ import ActionSheet from "react-native-actions-sheet";
 import PropTypes from 'prop-types';
 import MapViewDirections from 'react-native-maps-directions';
 import getDirections from 'react-native-google-maps-directions';
+import Icon2 from 'react-native-vector-icons//FontAwesome5';
+import Icon3 from 'react-native-vector-icons//MaterialCommunityIcons';
+import Icon4 from 'react-native-vector-icons//Fontisto';
 
 const _ = require('lodash');
 const { width, height } = Dimensions.get('window');
@@ -314,6 +317,18 @@ class Map extends Component {
     }
   }
 
+  modalTags = (types) => {
+     return (
+         <View style={{flexDirection: "row"}}>
+             {types.includes("restrooms") ? (<View style={[styles.tagsContainer, { backgroundColor: "cadetblue" }]}><Icon2 name="restroom" style={{ margin: 10 }} size={15} color="white"/></View>) : <></>}
+             {types.includes("water fountains") ? (<View style={[styles.tagsContainer, { backgroundColor: "dodgerblue" }]}><Icon3 name="fountain" style={{ margin: 10 }} size={20} color="white"/></View>) : <></>}
+             {types.includes("menstrual supplies") ? (<View style={[styles.tagsContainer, { backgroundColor: "lightcoral" }]}><Icon2 name="female" style={{ margin: 10 }} size={20} color="white"/></View>) : <></>}
+             {types.includes("moped parking") ? (<View style={[styles.tagsContainer, { backgroundColor: "orange" }]}><Icon4 name="motorcycle" style={{ margin: 10 }} size={20} color="white"/></View>) : <></>}
+             {types.includes("bike parking") ? (<View style={[styles.tagsContainer, { backgroundColor: "seagreen" }]}><Icon3 name="bike" style={{ margin: 10 }} size={20} color="white"/></View>) : <></>}
+         </View>
+     )
+  }
+
   modalDetails = (detail, type) => {
     if(detail){
         if (type === 'Website') {
@@ -418,6 +433,7 @@ class Map extends Component {
                     />
                     {this.modalTitle(this.state.tempMarker)}
                     {this.modalImage(this.state.tempMarker)}
+                    {this.modalTags(["restrooms", "water fountains", "menstrual supplies", "moped parking", "bike parking"])}
                     {this.modalDescription(this.state.tempMarker)}
                     {this.modalDetails(this.state.tempMarker.website, 'Website')}
                     {this.state.tempMarker.email || this.state.tempMarker.phone ?
@@ -551,6 +567,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
   },
+  tagsContainer: {
+    margin: 10,
+    borderRadius: 30,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 // add info for offices/department in props
