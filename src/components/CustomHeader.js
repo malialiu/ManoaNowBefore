@@ -39,13 +39,13 @@ class CustomHeader extends Component {
         <Header
           leftComponent={{
             icon: 'keyboard-backspace',
-            color: '#fff',
+            color: '#000',
             onPress: this.onBackPress,
             iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
           }}
-          centerComponent={{ text: this.props.sectionTitle, style: { color: '#fff', fontSize: 20, fontFamily: 'AvenirNext-Medium' } }}
+          centerComponent={{ text: this.props.sectionTitle, style: { color: '#000', fontSize: 20, fontFamily: 'AvenirNext-Medium' } }}
           containerStyle={{
-            backgroundColor: 'black',
+            backgroundColor: 'white',
             borderBottomWidth: 0,
           }}
         />

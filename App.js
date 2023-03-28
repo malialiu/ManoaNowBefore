@@ -183,9 +183,9 @@ class HomeScreen extends React.Component {
       arrayOfFirebaseData = objectReformat(arrayOfFirebaseData);
       arrayOfFirebaseData = _.sortBy(arrayOfFirebaseData, 'position');
 
-      arrayOfFirebaseData.forEach(element => {
-        imageArray.push(element.image)
-      });
+//      arrayOfFirebaseData.forEach(element => {
+//        imageArray.push(element.image)
+//      });
 
       arrayOfFirebaseData.forEach(element => {
         linkArray.push(element.path)
