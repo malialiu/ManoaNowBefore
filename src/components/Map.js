@@ -358,21 +358,22 @@ class Map extends Component {
     })*/
    // console.log("mysource" + JSON.stringify(source));
     return (!fontsAreLoaded) ? <AppLoading /> : (
-      <View style={{ flex: 1, backgroundColor: 'black' }}>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
         <Header
-          leftComponent={{ icon: 'keyboard-backspace', color: '#fff', onPress: this.onBackPress, iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
+          leftComponent={{ icon: 'keyboard-backspace', color: 'black', onPress: this.onBackPress, iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
           }}
           centerComponent={{ style: { color: '#fff', fontSize: 20 } }}
-          rightComponent={{ icon: 'apartment', color: '#fff', onPress: this.onListPress('page', 'Search'), iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize}, }}
+          rightComponent={{ icon: 'apartment', color: 'black', onPress: this.onListPress('page', 'Search'), iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize}, }}
           containerStyle={{
-            backgroundColor: 'black',
-            borderBottomWidth: 0,
+            backgroundColor: 'white',
+            borderBottomWidth: 1,
+            borderRadius: 1,
           }}
         />
-        {Platform.OS === 'android' ? <StatusBar translucent={false} barStyle="light-content" backgroundColor="black" /> : null}
+        {Platform.OS === 'android' ? <StatusBar translucent={false} barStyle="light-content" backgroundColor="white" /> : null}
 
         <MapView
-          style={{ flex: 1, marginTop: 10, marginRight: 10, marginLeft: 10 }}
+          style={{ flex: 1, marginTop: 10, marginRight: 10, marginLeft: 10, borderWidth: 1, borderRadius: 5, borderColor: 'black' }}
           initialRegion={{
             latitude: 21.297152,
             longitude: -157.817677,
@@ -381,7 +382,7 @@ class Map extends Component {
           }}
           showsMyLocationButton={true}
           showUserLocation={true}
-          mapType={'satellite'}
+          mapType={'standard'}
         >
            {this.state.filteredPins.map((marker, idx) => (
             <MapView.Marker
@@ -404,6 +405,7 @@ class Map extends Component {
             animationType="slide"
             transparent={true}
             visible={this.state.isModalVisible}
+            containerStyle={{ backgroundColor: 'white' }}
         >
 
             <View style={styles.centeredView}>
@@ -434,11 +436,15 @@ class Map extends Component {
 
         <View style={{ marginTop: 20, marginBottom: 10 }}>
             <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                <View style={{ flex: 3 }}>
+                <View style={{ width: Dimensions.get('window').width - 20, marginRight: 10, marginLeft: 10 }}>
                     <SearchBar
                         onChangeText={text => this.handleSearch(text)}
                         value={search}
                         round
+                        inputStyle={{ backgroundColor: 'white' }}
+                        containerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 5 }}
+                        placeholderTextColor={ '#g5g5g5' }
+                        inputContainerStyle={{ backgroundColor: 'white' }}
                     />
                 </View>
             </View>

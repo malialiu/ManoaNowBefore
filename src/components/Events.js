@@ -65,7 +65,6 @@ class Events extends Component {
     };
   }
 
-
   async componentDidMount() {
     await Font.loadAsync({ 'Material Icons': require('../../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/MaterialIcons.ttf') });
     await Font.loadAsync({ 'Ionicons': require('../../node_modules/@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf') });
@@ -247,13 +246,13 @@ class Events extends Component {
     let uri3 = monthURL[nexnexMonth - 1];
     // console.log('This Month: ' + currMonth + '\nNext Month: ' + nextMonth + '\nYear: ' + currYear + "\nNext Year: " + nextYear);
     return (!eventsAreLoaded || !ACEventsAreLoaded) ? (<AppLoading />) :
-      <ScrollView style={{ backgroundColor: '#000000', marginTop: -11, width: '100%', height: height, }} >
+      <ScrollView style={{ backgroundColor: 'white', marginTop: -11, width: '100%', height: height, }} >
         <CustomHeader />
         <Calendar
           theme={{
-            calendarBackground: '#2d2d2d',
-            dayTextColor: '#fff',
-            monthTextColor: '#fff',
+            calendarBackground: 'white',
+            dayTextColor: 'black',
+            monthTextColor: 'black',
           }}
           // Handler which gets executed on day press. Default = undefined
           onDayPress={day => {
@@ -297,71 +296,34 @@ class Events extends Component {
                     resizeMode="contain"
                   >
                     <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' }}>
-                      <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'white' }}>{this.getMonth(this.state.selectedMonth)} {this.state.selectedDay}</Text>
+                      <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'black' }}>{this.getMonth(this.state.selectedMonth)} {this.state.selectedDay}</Text>
                     </View>
                     </Image>
-                  <Text style={{ color: 'white', marginLeft: 80, fontWeight: 'bold', marginTop: 30, fontSize: 20, alignSelf: 'center' }}>No Events</Text>
+                  <Text style={{ color: 'black', marginLeft: 80, fontWeight: 'bold', marginTop: 30, fontSize: 20, alignSelf: 'center' }}>No Events</Text>
                 </View>
               </View> :
               <View style={{ marginLeft: 20 }}>
                 {this.getEvent().map((event, x) => (
                     <View key={x} style={{ flexDirection: 'row', flex: 1 }}>
 
-                      {event.image == undefined && event.link == undefined ?
-                        <View>
-                          <Image
-                            source={require('../images/assets/calendar1.png')}
-                            style={{
-                              width: 150,
-                              height: 150,
-                              marginTop: 20
-                            }}
-                            resizeMode="contain"
-                          >
-                         <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 20, color: 'white' }}>{this.getMonth(this.state.selectedMonth)} {this.state.selectedDay}</Text>
-                      </View>
-                      </Image>
-                        </View> :
-                        event.image != "" ?
-                        <View>
-                        <Image
-                            source={{uri: IDstr + event.image}}
-                            style={{
-                            width: 150,
-                            height: 150,
-                            marginTop: 20,
-                            borderRadius: 10
-                          }}
-                          resizeMode="cover"
-                        ></Image>
-                        </View>
-                        :
-                        <View>
-                        <Image
-                            source={{uri: event.link}}
-                            style={{
-                            width: 150,
-                            height: 150,
-                            marginTop: 20,
-                            borderRadius: 10
-                          }}
-                          resizeMode="cover"
-                        ></Image>
-                        </View>
-                      }
-
                     <View style={{marginLeft: 10}}>
-                      <Text key={event} style={{ flex: 1, flexWrap: 'wrap', width: Dimensions.get('window').width - 200, color: 'white', fontWeight: 'bold', fontSize: 20, marginTop: 20 }}>{event.name.toString()}</Text>
-                      <HtmlText html={event.desc.toString()} style={{ flex: 1, flexWrap: 'wrap', color: 'white', width: Dimensions.get('window').width - 175, marginTop: 20 }}><B></B></HtmlText>
+                      <Text key={event} style={{ flex: 1, flexWrap: 'wrap', width: Dimensions.get('window').width - 50, color: 'black', fontWeight: 'bold', fontSize: 20, marginTop: 20 }}>{event.name.toString()}</Text>
+                      <HtmlText html={event.desc.toString()} style={{ flex: 1, flexWrap: 'wrap', color: 'black', width: Dimensions.get('window').width - 50, marginTop: 20 }}><B></B></HtmlText>
                       <View style={{ flexDirection: 'row' }}>
-                        <Icon style={{ marginTop: 17 }} name='schedule' color="white" />
-                        <Text style={{ color: 'white', marginTop: 20 }}>{event.timeStart.toString()} - {event.timeEnd.toString()}</Text>
+                        <Icon style={{ marginTop: 17 }} name='schedule' color="black" />
+                        <Text style={{ color: 'black', marginTop: 20 }}>{event.timeStart.toString()} - {event.timeEnd.toString()}</Text>
                       </View>
                       <View style={{ paddingBottom: 10, flexDirection: 'row' }}>
-                        <Icon style={{ marginTop: 17 }} name='place' color="white" />
-                        <Text style={{ color: 'white', marginTop: 20}}>{event.location.toString()}</Text>
+                        <Icon style={{ marginTop: 17 }} name='place' color="black" />
+                        <Text style={{ color: 'black', marginTop: 20}}>{event.location.toString()}</Text>
                       </View>
+                      <View
+                        style={{
+                            height: 1,
+                            width: "100%",
+                            backgroundColor: "black",
+                        }}
+                        />
                   </View>
                   </View>))}
           </View>}

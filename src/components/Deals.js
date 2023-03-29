@@ -121,8 +121,8 @@ class Deals extends Component {
     if(type === "Deal" ){
       return (
       <View style={{width: '100%', height: '100%', resizeMode: 'contain', marginTop: '50%'}}>
-          <Text style={{ paddingLeft: width/14, fontWeight: 'bold', paddingRight: width/14, color: 'white', fontFamily: 'AvenirNext-Medium', fontSize: 25, textAlign: 'center' }}>COMING SOON</Text>
-          <Text style={{ paddingLeft: width/14, paddingRight: width/14, color: 'white', fontFamily: 'AvenirNext-Medium', fontSize: 25, textAlign: 'center' }}> The Kaleo Team is working hard to find you UH Deals</Text>
+          <Text style={{ paddingLeft: width/14, fontWeight: 'bold', paddingRight: width/14, color: 'black', fontFamily: 'AvenirNext-Medium', fontSize: 25, textAlign: 'center' }}>COMING SOON</Text>
+          <Text style={{ paddingLeft: width/14, paddingRight: width/14, color: 'black', fontFamily: 'AvenirNext-Medium', fontSize: 25, textAlign: 'center' }}> The Kaleo Team is working hard to find you UH Deals!</Text>
       </View>
       );
     } else {
@@ -138,8 +138,6 @@ class Deals extends Component {
             onBackdropPress={() => this.setState({ isVisible: false })}
             width={width * .85}
             height={width * .85}
-            windowBackgroundColor="rgba(0, 0, 0, .75)"
-            overlayStyle={{backgroundColor: 'rgba(0, 0, 0, 0.0)'}}
           >
             <Image
               source={{uri: overlayImage}}
@@ -170,7 +168,7 @@ class Deals extends Component {
     const { type, IDAreLoaded, JobsAreLoaded, IDAds, JobAds, overlayImage } = this.state;
     const { navigation } = this.props;
     return !IDAreLoaded && !JobsAreLoaded ? <AppLoading /> : (
-      <View style={{ width: '100%', backgroundColor: '#2D2D2D'}} >
+      <View style={{ width: '100%', backgroundColor: 'white'}} >
         <CustomHeader />
          {this.typeChecker(type, IDAds, JobAds, overlayImage)}
       </View>

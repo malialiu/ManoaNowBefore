@@ -131,8 +131,7 @@ class PinList extends Component {
         style={{
           height: 1,
           width: "100%",
-          backgroundColor: "#A9A9A9",
-          // marginLeft: "14%"
+          backgroundColor: "black",
         }}
       />
     );
@@ -198,16 +197,16 @@ class PinList extends Component {
       <View style={styles.container, {}}>
         <View>
           <Header
-            leftComponent={{ icon: 'keyboard-backspace', color: '#fff', onPress: this.onBackPress, iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
+            leftComponent={{ icon: 'keyboard-backspace', color: 'black', onPress: this.onBackPress, iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
             }}
-            centerComponent={{ text: 'Building List', style: { color: '#fff', fontSize: 20} }}
-            rightComponent={{icon:'map', color: '#fff', onPress: () => this.onMapPress(), iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
+            centerComponent={{ text: 'Building List', style: { color: 'black', fontSize: 20} }}
+            rightComponent={{icon:'map', color: 'black', onPress: () => this.onMapPress(), iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
             }}
             containerStyle={{
               borderBottomWidth: 0,
               // flex: 1, 
               // marginTop: StatusBar.currentHeight || 0,
-              backgroundColor: 'black',  
+              backgroundColor: 'white',
             }}
             centerContainerStyle={{
               justifyContent: "center",
@@ -215,33 +214,35 @@ class PinList extends Component {
             statusBarProps={{backgroundColor: "black"}}
           />
           <SearchBar
-              // searchIcon={this.custIcon}
-              placeholder="Search by name..."
-              onChangeText={this.handleSearch}
-              value={search}
-              round
+            onChangeText={text => this.handleSearch(text)}
+            value={search}
+            round
+            inputStyle={{ backgroundColor: 'white' }}
+            containerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 5 }}
+            placeholderTextColor={ '#g5g5g5' }
+            inputContainerStyle={{ backgroundColor: 'white' }}
           />
 
           <FlatList
             //original: height * .5 //
             style={{
-                backgroundColor: 'black',
+                backgroundColor: 'white',
               }}
             data={this.state.data}
             renderItem={({ item }) => (
-              <ListItem containerStyle={{backgroundColor: 'black'}} onPress={this.onListPress(item)}>
+              <ListItem containerStyle={{backgroundColor: 'white'}} onPress={this.onListPress(item)}>
                 <ListItem.Content >
                   <View style={{flex: 1, flexDirection: 'row'}}>
                     <View style={{flex: 1, flexDirection: 'column', marginRight: 15}}>
-                      <ListItem.Title style={{fontWeight: 'bold', marginBottom: width * .01, color: "#fff"}}>{item.title}</ListItem.Title>
-                      <ListItem.Subtitle style={{color: "#fff"}}>
+                      <ListItem.Title style={{fontWeight: 'bold', marginBottom: width * .01, color: "black"}}>{item.title}</ListItem.Title>
+                      <ListItem.Subtitle style={{color: "black"}}>
                         {item.description.length > 110 ? item.description.slice(0,100) + '...' : item.description}
                       </ListItem.Subtitle>
                     </View>
                     {item.images.length > 0 ? (
                         <Image
                           source={{ uri: item.images[0] }}
-                          style={{ width: width * .3, height: height * 0.15}}
+                          style={{ width: width * .3, height: height * 0.15, borderWidth: .5}}
                         />
                       ) : null 
                     }
