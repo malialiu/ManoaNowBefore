@@ -1,6 +1,6 @@
  import React, { Component } from 'react';
 import * as firebase from 'firebase';
-import { ImageBackground, Header, Text, StyleSheet, View, FlatList, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
+import { ImageBackground, Text, StyleSheet, View, FlatList, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
 import { List, Image, Overlay } from 'react-native-elements'
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
@@ -8,7 +8,8 @@ import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import CustomHeader from './CustomHeader';
 const _ = require('lodash');
-const { width } = Dimensions.get('window');
+
+const { width, height } = Dimensions.get('window');
 let IDR;
 
 class Deals extends Component {
@@ -167,9 +168,10 @@ class Deals extends Component {
   render() {
     const { type, IDAreLoaded, JobsAreLoaded, IDAds, JobAds, overlayImage } = this.state;
     const { navigation } = this.props;
+    let padSize = height / 120;
     return !IDAreLoaded && !JobsAreLoaded ? <AppLoading /> : (
       <View style={{ width: '100%', backgroundColor: 'white'}} >
-        <CustomHeader />
+        <CustomHeader color="#ef4c7f"/>
          {this.typeChecker(type, IDAds, JobAds, overlayImage)}
       </View>
 

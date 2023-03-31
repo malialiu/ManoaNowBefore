@@ -5,8 +5,7 @@ import { withNavigation } from 'react-navigation';
 import AppLoading from 'expo-app-loading';
 import { Header } from 'react-native-elements';
 const { height } = Dimensions.get('window');
-
-
+import CustomHeader from './CustomHeader';
 
 let appPkg = require('../../app.json');
 
@@ -79,18 +78,7 @@ class PlainText extends Component {
     let padSize = height / 120;
     return !textsAreLoaded  ? <AppLoading /> : (
       <View style={{ flex: 1 }}>
-        <Header
-          leftComponent={{
-            icon: 'keyboard-backspace',
-            color: '#fff',
-            onPress: this.onBackPress,
-            iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
-          }}
-          centerComponent={{ text: this.headerLoader(this.props.info), style: { color: '#fff', fontSize: 20 } }}
-          containerStyle={{
-            backgroundColor: 'black',
-          }}
-        />
+        <CustomHeader color="#fff" />
         {Platform.OS === 'android' ? <StatusBar translucent={false} barStyle="light-content" backgroundColor="black" /> : null}
         <ScrollView backgroundColor={"black"} >
           <Text style={{color: "white", marginHorizontal: 20}}>{this.textLoader(this.props.info)}</Text>
@@ -103,6 +91,7 @@ class PlainText extends Component {
 PlainText.propTypes = {
   navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
   info: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
   textRef: PropTypes.object.isRequired,
 };
 

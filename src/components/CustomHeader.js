@@ -10,6 +10,7 @@ class CustomHeader extends Component {
     super(props);
     this.state = {
       sectionTitle: '',
+      color: '',
     };
   }
 
@@ -45,7 +46,7 @@ class CustomHeader extends Component {
           }}
           centerComponent={{ text: this.props.sectionTitle, style: { color: 'black', fontSize: 20, fontFamily: 'AvenirNext-Medium' } }}
           containerStyle={{
-            backgroundColor: 'white',
+            backgroundColor: this.props.color,
             borderBottomWidth: 0,
           }}
         />

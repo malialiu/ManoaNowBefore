@@ -112,7 +112,7 @@ class Map extends Component {
 
   onMarkerPress = location => (marker) => {
     calloutPressed = true;
-    console.log("Callout pressed!");
+    // console.log("Callout pressed!");
     /*
     this.props.navigation.push('Location', {
       pin: location,
@@ -193,7 +193,7 @@ class Map extends Component {
     this.setState({ myLat: marker.lat})
     this.setState({ myLng: marker.lng })
     this.setState({ tempMarker: marker })
-    console.log('Pin Pressed, show Bottom Drawer')
+    // console.log('Pin Pressed, show Bottom Drawer')
   }
 
   bottomTitleShower = (marker) => {
@@ -231,7 +231,7 @@ class Map extends Component {
    if (markerPressed || calloutPressed){
       markerPressed = false;
       actionSheetRef.current?.setModalVisible();
-      console.log("bottom drawer");
+      // console.log("bottom drawer");
       return(
         <ActionSheet containerStyle = {{height: 400, backgroundColor: '#2D2D2D'}} ref={actionSheetRef} gestureEnabled={true} >
           <ScrollView
@@ -365,7 +365,7 @@ class Map extends Component {
           centerComponent={{ style: { color: '#fff', fontSize: 20 } }}
           rightComponent={{ icon: 'apartment', color: 'black', onPress: this.onListPress('page', 'Search'), iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize}, }}
           containerStyle={{
-            backgroundColor: 'white',
+            backgroundColor: '#00aeef',
             borderBottomWidth: 1,
             borderRadius: 1,
           }}

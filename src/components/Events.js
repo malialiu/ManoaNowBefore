@@ -246,8 +246,8 @@ class Events extends Component {
     let uri3 = monthURL[nexnexMonth - 1];
     // console.log('This Month: ' + currMonth + '\nNext Month: ' + nextMonth + '\nYear: ' + currYear + "\nNext Year: " + nextYear);
     return (!eventsAreLoaded || !ACEventsAreLoaded) ? (<AppLoading />) :
-      <ScrollView style={{ backgroundColor: 'white', marginTop: -11, width: '100%', height: height, }} >
-        <CustomHeader />
+      <ScrollView style={{ backgroundColor: 'white', width: '100%', height: height, }} >
+        <CustomHeader color="#a6ce39"/>
         <Calendar
           theme={{
             calendarBackground: 'white',

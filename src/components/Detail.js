@@ -13,6 +13,7 @@ class Detail extends Component {
     this.state = {
       pageLink: this.props,
       fontsAreLoaded: false,
+      color: '',
     };
   }
 
@@ -28,7 +29,7 @@ class Detail extends Component {
     const { fontsAreLoaded, pageLink } = this.state;
     return !fontsAreLoaded ? <AppLoading /> : (
       <View style={{ flex: 1 }}>
-        <CustomHeader />
+        <CustomHeader color={this.props.color} />
         <WebView
           source={{ uri: pageLink.pageLink }}
           automaticallyAdjustContentInsets={false}
@@ -44,6 +45,7 @@ class Detail extends Component {
 
 Detail.protoTypes = {
   navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
+  color: PropTypes.string.isRequired,
 };
 
 export default withNavigation(Detail);
