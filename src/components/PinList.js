@@ -9,7 +9,8 @@ import { List, ListItem, SearchBar, Icon, Header, Image } from 'react-native-ele
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { Platform, StyleSheet} from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { FontAwesome5 } from '@expo/vector-icons';
+import CustomHeader from './CustomHeader';
 
 const { height, width } = Dimensions.get('window');
 const { deviceHeight, deviceWidth } = Dimensions.get('screen');
@@ -196,23 +197,7 @@ class PinList extends Component {
     return (!pinsAreLoaded && !fontsAreLoaded) ? <AppLoading /> : (
       <View style={styles.container, {}}>
         <View>
-          <Header
-            leftComponent={{ icon: 'keyboard-backspace', color: 'black', onPress: this.onBackPress, iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
-            }}
-            centerComponent={{ text: 'Building List', style: { color: 'black', fontSize: 20} }}
-            rightComponent={{icon:'map', color: 'black', onPress: () => this.onMapPress(), iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
-            }}
-            containerStyle={{
-              borderBottomWidth: 0,
-              // flex: 1, 
-              // marginTop: StatusBar.currentHeight || 0,
-              backgroundColor: 'white',
-            }}
-            centerContainerStyle={{
-              justifyContent: "center",
-            }}
-            statusBarProps={{backgroundColor: "black"}}
-          />
+          <CustomHeader color="#00aeef"/>
           <SearchBar
             onChangeText={text => this.handleSearch(text)}
             value={search}
