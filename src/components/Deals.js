@@ -247,7 +247,7 @@ class Deals extends Component {
     const { navigation } = this.props;
     let padSize = height / 120;
     return !IDAreLoaded && !JobsAreLoaded ? <AppLoading /> : (
-      <View style={{ width: '100%', backgroundColor: 'white'}} >
+      <View style={{ width: '100%'}} >
         <CustomHeader color="#ef4c7f"/>
          {this.typeChecker(type, IDAds, JobAds, overlayImage)}
       </View>
@@ -269,6 +269,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#DDDDDD",
     margin: 10,
     width: '95%',
+    borderWidth: 0.5,
+    borderTopLeftRadius: 6,
+    borderTopRightRadius: 6,
+    borderBottomLeftRadius: 6,
+    borderBottomRightRadius: 6,
     padding: 15
   },
   scroll_container: {
