@@ -21,9 +21,7 @@ import PropTypes from 'prop-types';
 import CustomHeader from './CustomHeader';
 const _ = require('lodash');
 
-
 const { width, height } = Dimensions.get('window');
-let IDR;
 
 class Deals extends Component {
   constructor(props) {
@@ -31,7 +29,7 @@ class Deals extends Component {
     this.state = {
       IDAds: [],
       JobAds: [],
-      overlayImage: "http://www.manoanow.org/app/uhid/upload/KaloTerrace.png",
+      overlayImage: "",
       IDAreLoaded: false,
       JobsAreLoaded: false,
       fontsAreLoaded: false,
@@ -39,7 +37,7 @@ class Deals extends Component {
       type: this.props.type,
       refreshing: false,
       isDealImageVisible: false,
-      dealImage: "http://www.manoanow.org/app/uhid/upload/KaloTerrace.png",
+      dealImage: "",
     };
   }
 
@@ -64,7 +62,6 @@ class Deals extends Component {
     const database = firebase.database();
     const JobRef = database.ref('jobs');
     const IDRef = database.ref('UHID');
-    IDR = IDRef;
 
 
     function objectReformatJob(inputObject) {
@@ -151,29 +148,28 @@ class Deals extends Component {
   typeChecker = (type, IDads, JobAds, overlayImage) => {
     let IDstr = 'https://www.manoanow.org/app/uhid/upload/';
     let Jobstr = 'https://www.manoanow.org/app/jobs/upload/';
-
-    const { refreshing } = this.state;
     console.log(overlayImage);
 
     if(type === "Deal" ){
       return (
-          <SafeAreaView style={styles.scroll_container}>
-            <ScrollView
-                style={{ backgroundColor: 'white', width: '100%', height: height }}
-                contentContainerStyle={styles.container}
-                refreshControl={
-                  <RefreshControl refreshing={refreshing} onRefresh={this.onRefresh} />
-                }>
+          <ScrollView scrollEnabled contentContainerStyle={styles.container}>
                     {IDads.map((ad, idx) => (
-                        <TouchableOpacity onPress={()=> this.onIDImagePress(ad, IDstr)} key={idx}>
-                            <Image
-                                source={{ uri:  overlayImage }}
-                                style={{ width: width * .48, height: width * .48 , marginTop: width * .01, marginBottom: width * .01, marginRight: width * .01}}
-                            />
-                        </TouchableOpacity>
+                      <TouchableOpacity onPress={()=> this.onIDImagePress(ad, IDstr)} key={idx} style={styles.button}>
+                          <Text>{ad.name}</Text>
+                      </TouchableOpacity>
                     )) }
-            </ScrollView>
-          </SafeAreaView>
+                    <Overlay
+                      isVisible={this.state.isVisible}
+                      onBackdropPress={() => this.setState({ isVisible: false })}
+                      width={width * .85}
+                      height={width * .85}
+                    >
+                      <Image
+                        source={{uri: overlayImage}}
+                        style={{width: width * .8, height: width * .8, }}
+                      />
+                    </Overlay>
+                  </ScrollView>
       );
     } else {
       return (

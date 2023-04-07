@@ -382,7 +382,7 @@ class HomeScreen extends React.Component {
                     />
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.onListPress('page', 'UH ID DEALS')}>
+                <TouchableOpacity onPress={() => {this.props.navigation.push('Deals', { type: 'Deal', });}}>
                     <Image
                         source={require('./src/images/2023_assets/2023_UH_ID.png')}
                         style={{
