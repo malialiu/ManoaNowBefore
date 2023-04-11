@@ -218,7 +218,7 @@ class PinInfo extends Component {
     if(email){
       return (
         <View>
-          <Text style={{ color: `white`, fontWeight: 'bold', fontSize: 16, marginBottom: 4, marginTop: 4 }}>
+          <Text style={{ color: `black`, fontWeight: 'bold', fontSize: 16, marginBottom: 4, marginTop: 4 }}>
             Email
           </Text>
           <Text style={{ color: `${this.colorHandler(email)}`, marginBottom: 10 }} onPress={() => this.handleEmail(email)}>
@@ -233,7 +233,7 @@ class PinInfo extends Component {
     if(web){
       return (
         <View>
-          <Text style={{ color: `white`, fontWeight: 'bold', fontSize: 16, marginBottom: 4, marginTop: 4 }}>
+          <Text style={{ color: `black`, fontWeight: 'bold', fontSize: 16, marginBottom: 4, marginTop: 4 }}>
             Website
           </Text>
           <Text style={{ color: `${this.colorHandler(web)}`, marginBottom: 10 }}
@@ -249,7 +249,7 @@ class PinInfo extends Component {
     if(phone){
       return (
         <View>
-          <Text style={{ color: `white`, fontSize: 16, fontWeight: 'bold', marginBottom: 4, marginTop: 4 }}>
+          <Text style={{ color: `black`, fontSize: 16, fontWeight: 'bold', marginBottom: 4, marginTop: 4 }}>
             Phone Number
           </Text>
                 <Text style={{ color: `${this.colorHandler(phone)}`, marginBottom: 10 }}
@@ -275,42 +275,42 @@ class PinInfo extends Component {
     this.imageReturner(data.images);
 
     return !fontsAreLoaded ? <AppLoading /> : (
-      <View>
+      <View style={{ backgroundColor: 'white' }} >
         <Header
-          leftComponent={{ icon: 'keyboard-backspace', color: '#fff', onPress: this.onBackPress, iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
+          leftComponent={{ icon: 'keyboard-backspace', color: 'black', onPress: this.onBackPress, iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
           }}
-          centerComponent={{ text: data.title, style: { color: '#fff', fontSize: 20 } }}
+          centerComponent={{ text: data.title, style: { color: 'black', fontSize: 20 } }}
           containerStyle={{
-            backgroundColor: 'black',
+            backgroundColor: 'white',
           }}
         />
-        {Platform.OS === 'android' ? <StatusBar translucent={false} barStyle="light-content" backgroundColor="black" /> : null}
+        {Platform.OS === 'android' ? <StatusBar translucent={false} barStyle="light-content" backgroundColor="white" /> : null}
       <ScrollView>
         {data.images.length > 0 ? (
           <Swiper showsButtons={true} style={styles.imageContainer}>
             {this.imageReturner(data.images)}
           </Swiper>
         ) : null}
-          <Card containerStyle={{marginTop: 0, marginLeft: -8, marginRight: -8, backgroundColor: 'black'}}>
-            <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold', fontSize: 25, color: 'white'}}>
+          <Card containerStyle={{marginTop: 0, marginLeft: -8, marginRight: -8, backgroundColor: 'white'}}>
+            <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold', fontSize: 25, color: 'black'}}>
               {data.title}
             </Text>
-            <Text style={{ color: `white`, fontWeight: 'bold', fontSize: 16, marginBottom: 4 }}>
+            <Text style={{ color: `black`, fontWeight: 'bold', fontSize: 16, marginBottom: 4 }}>
               Description
             </Text>
-            <Text style={{ marginBottom: 10 , color: 'white'}}>
+            <Text style={{ marginBottom: 10 , color: 'black'}}>
               {info}
             </Text>
 
-            <Text style={{ color: `white`, fontWeight: 'bold', fontSize: 16, marginBottom: 4, marginTop: 4 }}>
+            <Text style={{ color: `black`, fontWeight: 'bold', fontSize: 16, marginBottom: 4, marginTop: 4 }}>
               Building
             </Text>
-            <Text style={{ color: 'white', marginBottom: 10 }} onPress={() => this.handleBuilding(data.buildingKey)}>
+            <Text style={{ color: 'black', marginBottom: 10 }} onPress={() => this.handleBuilding(data.buildingKey)}>
               {data.buildingKey.replace(/([a-z])([A-Z])/g, '$1 $2')}
             </Text>
             {data.type.includes("Building") ? (
               <View>
-                <Text style={{ color: `white`, fontSize: 16, fontWeight: 'bold', marginBottom: 4, marginTop: 4 }}>
+                <Text style={{ color: `black`, fontSize: 16, fontWeight: 'bold', marginBottom: 4, marginTop: 4 }}>
                   Offices/Eateries
                 </Text>
 
@@ -318,7 +318,7 @@ class PinInfo extends Component {
                     {
                         officesTest.map((item, key) => (
                         <View key={key} >
-                          <Text key={key} style={{ color: `${this.colorHandler(item)}`, marginBottom: 10 }} onPress={this.onListPress(this.handleList(item.replace(/\s+/g, '')))}>
+                          <Text key={key} style={{ color: 'black', marginBottom: 10 }} onPress={this.onListPress(this.handleList(item.replace(/\s+/g, '')))}>
                             {item}
                             </Text>
                         </View>))
@@ -341,14 +341,14 @@ class PinInfo extends Component {
                 }
             </ScrollView> */}
 
-            <Divider style={{ backgroundColor: `white` }} />
+            <Divider style={{ backgroundColor: `black` }} />
 
             {this.showEmailHeader(data.email)}
             {this.showWebsiteHeader(data.website)}
             {this.showPhoneHeader(data.phone)}
 
             <Divider />
-            <Text style={{ color: '#aba1f6', fontSize: 16, marginTop: 4, marginBottom: 4 }}
+            <Text style={{ color: 'black', fontSize: 16, marginTop: 4, marginBottom: 4 }}
                   onPress={() => this.onNavigatePress(data.lat, data.lng)} >
                   Directions
             </Text>

@@ -1,15 +1,27 @@
- import React, { Component } from 'react';
+ import React, {Component} from 'react';
 import * as firebase from 'firebase';
-import { ImageBackground, Header, Text, StyleSheet, View, FlatList, Dimensions, ScrollView, TouchableOpacity } from 'react-native';
-import { List, Image, Overlay } from 'react-native-elements'
+import {
+  Text,
+  StyleSheet,
+  View,
+  FlatList,
+  Dimensions,
+  ScrollView,
+  TouchableOpacity,
+  RefreshControl,
+  SafeAreaView,
+  Image,
+  Pressable
+} from 'react-native';
+import { List, Overlay } from 'react-native-elements'
 import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font';
 import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import CustomHeader from './CustomHeader';
 const _ = require('lodash');
-const { width } = Dimensions.get('window');
-let IDR;
+
+const { width, height } = Dimensions.get('window');
 
 class Deals extends Component {
   constructor(props) {
@@ -17,12 +29,15 @@ class Deals extends Component {
     this.state = {
       IDAds: [],
       JobAds: [],
-      overlayImage: "http://www.manoanow.org/app/uhid/upload/KaloTerrace.png",
+      overlayImage: "",
       IDAreLoaded: false,
       JobsAreLoaded: false,
       fontsAreLoaded: false,
       isVisible: false,
       type: this.props.type,
+      refreshing: false,
+      isDealImageVisible: false,
+      dealImage: "",
     };
   }
 
@@ -47,7 +62,6 @@ class Deals extends Component {
     const database = firebase.database();
     const JobRef = database.ref('jobs');
     const IDRef = database.ref('UHID');
-    IDR = IDRef;
 
 
     function objectReformatJob(inputObject) {
@@ -66,24 +80,18 @@ class Deals extends Component {
     }
 
     function objectReformatID(inputObject) {
-      const arrayOfPins = [];
-      let objectOfPin = {};
+      const deals = [];
+      let dealObject = {};
       const keys = Object.keys(inputObject);
       for (let i = 0; i < keys.length; i += 1) {
         const key = keys[i];
-        objectOfPin = {
-          adimage: inputObject[key].adimage,
-          clicks: inputObject[key].clicks,
-          edate: inputObject[key].edate,
-          imp: inputObject[key].imp,
-          link: inputObject[key].link,
+        dealObject = {
+          image: inputObject[key].image,
           name: inputObject[key].name,
-          sdate: inputObject[key].sdate,
-          dataID: key,
         };
-        arrayOfPins.push(objectOfPin);
+        deals.push(dealObject);
       }
-      return arrayOfPins;
+      return deals;
     }
 
     JobRef.once('value').then((snapshot) => {
@@ -114,16 +122,54 @@ class Deals extends Component {
     this.props.navigation.goBack()
   }
 
+  onRefresh = () => {
+    this.setState({ refreshing: true });
+    setTimeout(() => {
+      this.setState({ refreshing: false });
+    }, 1000);
+  };
+
+  handleOnClick = (url) => {
+    this.setState({ isDealImageVisible: true, dealImage: url });
+    return this.state.isDealImageVisible;
+  };
+
+  showImage(url) {
+    return(
+        <TouchableOpacity onPress={() => this.handleOnClick(url)}>
+          <Image
+                 style={styles.image}
+                 source={{uri: url}}
+          />
+        </TouchableOpacity>
+    );
+  }
+
   typeChecker = (type, IDads, JobAds, overlayImage) => {
-    let IDstr = 'https://www.manoanow.org/app/portal/add_ad/upload/';
+    let IDstr = 'https://www.manoanow.org/app/uhid/upload/';
     let Jobstr = 'https://www.manoanow.org/app/jobs/upload/';
+    console.log(overlayImage);
 
     if(type === "Deal" ){
       return (
-      <View style={{width: '100%', height: '100%', resizeMode: 'contain', marginTop: '50%'}}>
-          <Text style={{ paddingLeft: width/14, fontWeight: 'bold', paddingRight: width/14, color: 'white', fontFamily: 'AvenirNext-Medium', fontSize: 25, textAlign: 'center' }}>COMING SOON</Text>
-          <Text style={{ paddingLeft: width/14, paddingRight: width/14, color: 'white', fontFamily: 'AvenirNext-Medium', fontSize: 25, textAlign: 'center' }}> The Kaleo Team is working hard to find you UH Deals</Text>
-      </View>
+          <ScrollView scrollEnabled contentContainerStyle={styles.container}>
+                    {IDads.map((ad, idx) => (
+                      <TouchableOpacity onPress={()=> this.onIDImagePress(ad, IDstr)} key={idx} style={styles.button}>
+                          <Text>{ad.name}</Text>
+                      </TouchableOpacity>
+                    )) }
+                    <Overlay
+                      isVisible={this.state.isVisible}
+                      onBackdropPress={() => this.setState({ isVisible: false })}
+                      width={width * .85}
+                      height={width * .85}
+                    >
+                      <Image
+                        source={{uri: overlayImage}}
+                        style={{width: width * .8, height: width * .8, }}
+                      />
+                    </Overlay>
+                  </ScrollView>
       );
     } else {
       return (
@@ -138,8 +184,6 @@ class Deals extends Component {
             onBackdropPress={() => this.setState({ isVisible: false })}
             width={width * .85}
             height={width * .85}
-            windowBackgroundColor="rgba(0, 0, 0, .75)"
-            overlayStyle={{backgroundColor: 'rgba(0, 0, 0, 0.0)'}}
           >
             <Image
               source={{uri: overlayImage}}
@@ -153,12 +197,8 @@ class Deals extends Component {
 
 
   onIDImagePress = (ad, str) => {
-    let path = str.concat(ad.adimage);
+    let path = str.concat(ad.image);
     this.setState({ isVisible: true, overlayImage: path })
-    let clicks = ad.clicks;
-    clicks++;
-    IDR.child(ad.dataID).update({ clicks: clicks });
-
   }
 
   onJobImagePress = (ad, str) => {
@@ -169,9 +209,10 @@ class Deals extends Component {
   render() {
     const { type, IDAreLoaded, JobsAreLoaded, IDAds, JobAds, overlayImage } = this.state;
     const { navigation } = this.props;
+    let padSize = height / 120;
     return !IDAreLoaded && !JobsAreLoaded ? <AppLoading /> : (
-      <View style={{ width: '100%', backgroundColor: '#FFFFFF'}} >
-        <CustomHeader />
+      <View style={{ width: '100%'}} >
+        <CustomHeader color="#ef4c7f"/>
          {this.typeChecker(type, IDAds, JobAds, overlayImage)}
       </View>
 
@@ -185,14 +226,32 @@ const styles = StyleSheet.create({
     height: '100%',
     flexDirection: 'row',
     flexWrap: 'wrap' ,
-    justifyContent: "center"
+    justifyContent: "center",
   },
   button: {
     alignItems: "center",
     backgroundColor: "#DDDDDD",
     margin: 10,
     width: '95%',
+    borderWidth: 0.5,
+    borderTopLeftRadius: 6,
+    borderTopRightRadius: 6,
+    borderBottomLeftRadius: 6,
+    borderBottomRightRadius: 6,
     padding: 15
+  },
+  scroll_container: {
+    paddingBottom : 80,
+  },
+  image: {
+    aspectRatio: 1,
+    width: (width - 8) / 2,
+    height: undefined,
+    resizeMode: 'contain',
+    flex: 1,
+    marginVertical: 2,
+    marginHorizontal: 2,
+    backgroundColor: 'black'
   },
 });
 

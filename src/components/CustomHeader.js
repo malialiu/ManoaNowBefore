@@ -10,6 +10,7 @@ class CustomHeader extends Component {
     super(props);
     this.state = {
       sectionTitle: '',
+      color: '',
     };
   }
 
@@ -39,13 +40,13 @@ class CustomHeader extends Component {
         <Header
           leftComponent={{
             icon: 'keyboard-backspace',
-            color: '#000',
+            color: 'black',
             onPress: this.onBackPress,
             iconStyle: {paddingTop: padSize, paddingRight: padSize, paddingLeft: padSize, paddingBottom: padSize},
           }}
-          centerComponent={{ text: this.props.sectionTitle, style: { color: '#000', fontSize: 20, fontFamily: 'AvenirNext-Medium' } }}
+          centerComponent={{ text: this.props.sectionTitle, style: { color: 'black', fontSize: 20, fontFamily: 'AvenirNext-Medium' } }}
           containerStyle={{
-            backgroundColor: 'white',
+            backgroundColor: this.props.color,
             borderBottomWidth: 0,
           }}
         />

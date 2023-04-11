@@ -282,8 +282,8 @@ class HomeScreen extends React.Component {
   };
 
   updateChecker = (androidRef, appleRef) => {
-    console.log(appleRef);
-    console.log(androidRef);
+    // console.log(appleRef);
+    // console.log(androidRef);
     let ret = false;
 
     if ((androidRef === undefined) || (appleRef === undefined)) {
@@ -298,7 +298,7 @@ class HomeScreen extends React.Component {
       // if (appPkg.expo.version === nowappRef.child("map/pin")){
       if (appPkg.expo.version !== appleRef) {
         ret = true;
-        console.log(this.state.isVisible);
+        // console.log(this.state.isVisible);
       }
     }
     this.setState({ isVisible: ret });
@@ -346,16 +346,6 @@ class HomeScreen extends React.Component {
           <View style={{ width: '100%' }} />
           <ImageBackground source={ require('./src/images/2023_assets/BACKGROUND_2023.jpg') } style={{ width: '100%', height: '100%' }}>
             <ScrollView scrollEnabled contentContainerStyle={{ flexGrow: 1, flexDirection: 'row', flexWrap: 'wrap', paddingBottom: height/5 }}>
-              <SliderBox images={this.state.adImages}
-                paginationBoxVerticalPadding={0}
-                sliderBoxHeight={height/11}
-                circleLoop={true}
-                dotStyle={{ 'width': 0, 'height': 0 }}
-                inactiveDotColor={'black'}
-                onCurrentImagePressed={(index) => this.props.navigation.push('Details', {
-                  navigation: this.state.adLinks[index],
-                })}
-                ImageComponentStyle={{ width: '120%', resizeMode: 'contain', marginBottom: 20 }} />
 
               <View style={{
                 flexDirection: 'row'
@@ -376,9 +366,9 @@ class HomeScreen extends React.Component {
                 </TouchableOpacity>
               </View>
               <View style={{
-                            marginTop: 30,
-                            flexDirection: 'row'
-                            }}>
+                marginTop: 30,
+                flexDirection: 'row'
+              }}>
 
                 <TouchableOpacity onPress={this.onListPress('page', 'MAP')}>
                     <Image
@@ -392,7 +382,7 @@ class HomeScreen extends React.Component {
                     />
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.onListPress('page', 'UH ID DEALS')}>
+                <TouchableOpacity onPress={() => {this.props.navigation.push('Deals', { type: 'Deal', });}}>
                     <Image
                         source={require('./src/images/2023_assets/2023_UH_ID.png')}
                         style={{
@@ -410,7 +400,7 @@ class HomeScreen extends React.Component {
                       }}>
 
                 <TouchableOpacity onPress={() => this.props.navigation.push('Details', {
-                  navigation: "https://uhmshuttle.com/routes"
+                  navigation: "https://uhmshuttle.com/routes",
                 })}>
                   <Image
                     source={require('./src/images/2023_assets/2023_RAINBOW_SHUTTLE.png')}
@@ -509,10 +499,20 @@ class HomeScreen extends React.Component {
 }
 
 const DetailsScreen = (props) => {
-  const { navigation } = props;
+  const { navigation, name } = props;
   const pageLink = navigation.getParam('navigation', 'https://google.com');
+  let color = "";
+
+  if (pageLink === 'https://eacct-hawaii-manoa-sp.transactcampus.com/eAccounts/AnonymousHome.aspx') {
+    color = '#ffc500';
+  } else if (pageLink === "https://uhmshuttle.com/routes") {
+    color = '#00aeef';
+  } else if (pageLink === 'https://www.star.hawaii.edu/studentinterface/') {
+    color = '#f3702b';
+  }
+
   return (
-    <Detail pageLink={pageLink} />
+    <Detail pageLink={pageLink} color={color} />
   );
 };
 
@@ -703,6 +703,7 @@ export default App;
 
 DetailsScreen.propTypes = {
   navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
+  color: PropTypes.string.isRequired,
 };
 LocationScreen.propTypes = {
   navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
