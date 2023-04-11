@@ -4,14 +4,12 @@ import {
   Text,
   StyleSheet,
   View,
-  FlatList,
   Dimensions,
   ScrollView,
   TouchableOpacity,
   RefreshControl,
-  SafeAreaView,
   Image,
-  Pressable
+  Pressable,
 } from 'react-native';
 import { List, Overlay } from 'react-native-elements'
 import AppLoading from 'expo-app-loading';
@@ -73,6 +71,9 @@ class Deals extends Component {
         objectOfPin = {
           adimage: inputObject[key].adimage,
           name: inputObject[key].name,
+          company: inputObject[key].company,
+          desc: inputObject[key].desc,
+          location: inputObject[key].location
         };
         arrayOfPins.push(objectOfPin);
       }
@@ -145,6 +146,25 @@ class Deals extends Component {
     );
   }
 
+  showJobs(ad, Jobstr) {
+    return(
+        <TouchableOpacity onPress={()=> this.onJobImagePress(ad, Jobstr)} key={idx} style={styles.button}>
+          <View>
+            <Image
+                source={{uri: Jobstr.concat(ad.adimage)}}
+                style={{width: width * .2, height: width * .2, }}
+            />
+          </View>
+          <View>
+            <Text style={{fontSize: 20, fontWeight: 'bold'}}>{ad.name}</Text>
+            <Text style={{fontSize: 15, fontWeight: 'bold'}}>{ad.company}</Text>
+            <Text style={{color: '#878787', fontWeight: 'bold'}}>{ad.location}</Text>
+            <Text style={{fontSize: 13}}>{ad.desc}</Text>
+          </View>
+        </TouchableOpacity>
+    );
+  }
+
   typeChecker = (type, IDads, JobAds, overlayImage) => {
     let IDstr = 'https://www.manoanow.org/app/uhid/upload/';
     let Jobstr = 'https://www.manoanow.org/app/jobs/upload/';
@@ -152,7 +172,7 @@ class Deals extends Component {
 
     if(type === "Deal" ){
       return (
-          <ScrollView scrollEnabled contentContainerStyle={styles.container}>
+          <ScrollView scrollEnabled contentContainerStyle={styles.scroll_container}>
                     {IDads.map((ad, idx) => (
                       <TouchableOpacity onPress={()=> this.onIDImagePress(ad, IDstr)} key={idx} style={styles.button}>
                           <Text>{ad.name}</Text>
@@ -173,13 +193,27 @@ class Deals extends Component {
       );
     } else {
       return (
-      <ScrollView scrollEnabled contentContainerStyle={styles.container}>
-          {JobAds.map((ad, idx) => (
-            <TouchableOpacity onPress={()=> this.onJobImagePress(ad, Jobstr)} key={idx} style={styles.button}>
-                <Text>{ad.name}</Text>
+      <ScrollView scrollEnabled contentContainerStyle={styles.scroll_container}>
+        {JobAds.map((ad, idx) => (
+            <TouchableOpacity onPress={()=> this.onJobImagePress(ad, Jobstr)} key={idx} style={styles.button} activeOpacity={0.5}>
+              <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                <View style={{width: '30%', justifyContent: 'center', alignItems: 'center', marginRight: 15}}>
+                  <Image
+                      source={{uri: Jobstr.concat(ad.adimage)}}
+                      style={{width: width * 0.25, height: width * 0.25}}
+                  />
+                </View>
+                <View style={{width: '65%'}}>
+                  <Text style={{fontSize: 19, fontWeight: 'bold'}}>{ad.name}</Text>
+                  <Text style={{fontSize: 12, fontWeight: 'bold'}}>{ad.company}</Text>
+                  <Text style={{fontSize: 12, color: '#878787', fontWeight: 'bold'}}>{ad.location}</Text>
+                  <Text style={{fontSize: 12}}>{ad.desc}</Text>
+                </View>
+              </View>
             </TouchableOpacity>
-          )) }
-          <Overlay
+        )) }
+
+        <Overlay
             isVisible={this.state.isVisible}
             onBackdropPress={() => this.setState({ isVisible: false })}
             width={width * .85}
@@ -229,16 +263,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button: {
-    alignItems: "center",
     backgroundColor: "#DDDDDD",
     margin: 10,
     width: '95%',
-    borderWidth: 0.5,
-    borderTopLeftRadius: 6,
-    borderTopRightRadius: 6,
-    borderBottomLeftRadius: 6,
-    borderBottomRightRadius: 6,
-    padding: 15
+    borderWidth: 3,
+    borderRadius: 10,
+    padding: 15,
+    borderColor: '#C1C1C1',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
   scroll_container: {
     paddingBottom : 80,
